@@ -11,8 +11,8 @@
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
         <link href="/TNAN/admin/css/stylesheet.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
-        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/fttcs.png">
-        <title>Tindahan ni Aling Nena</title>
+        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
+        <title>Zsaliah's Closet</title>
 </head>
 <body>
 
@@ -67,16 +67,16 @@
                             <a class="nav-link active" href="/TNAN/admin/transaction.php">&nbsp;&nbsp;ORDER&nbsp;&nbsp;</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-primary" href="/TNAN/admin/preparing.php">PREPARING</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/preparing.php">PREPARING</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-primary" href="/TNAN/admin/deliver.php">TO DELIVER</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/deliver.php">TO DELIVER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-primary" href="/TNAN/admin/received.php">RECEIVED</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/received.php">RECEIVED</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-primary" href="/TNAN/admin/Completed.php">COMPLETED</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/Completed.php">COMPLETED</a>
                         </li>
                 </ul>
                     <div class="row" id="fetchOrder"></div>

@@ -243,7 +243,7 @@ if(isset($_POST["getReceived"])){
 			<div class"container">
 				<div class="row my-5 py-5">
 					<div class="col-12 my-5 py-5">
-						<H3 class="text-center fw-bold"> ALL PRODUCT HAS BEEN DELIVER </H3>
+						<H3 class="text-center fw-bold">ALL PRODUCT HAS BEEN RECEIVE </H3>
 					</div>
 				</div>
 			</div>

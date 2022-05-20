@@ -36,17 +36,14 @@
         net_total();
         identification();
         count_item();
-        count_message();
         count_pending();
-        count_announcement();
-        removeAnnouncement();
         customerDetails();
     });
 
 // FUNCTION FOR FETCH NAME AND IMAGES
     function identification(){
         $.ajax({
-            url	:	"/TNAN/includes/php/action.php",
+            url	:	"/TNAN/includes/php/function.php",
             method:	"POST",
             data	:	{identification:1},
             success	:	function(data){
@@ -58,7 +55,7 @@
 // FUNCTION FOR FETCH CATEGORY
     function category(){
         $.ajax({
-            url	:	"/TNAN/includes/php/action.php",
+            url	:	"/TNAN/includes/php/function.php",
             method:	"POST",
             data	:	{category:1},
             success	:	function(data){
@@ -69,11 +66,11 @@
 
 // FUNCTION FOR CLICK CATEGORY
     $("body").delegate(".category","click",function(event){
-        $("#get_product").html("<div class='alert bg-light text-danger text-center' role='alert'><h5>Loading...</h5></div>");
+        $("#get_product").html("<div class='alert bg-light text-center' style='color:#AD8B73;' role='alert'><h5>Loading...</h5></div>");
         event.preventDefault();
         var cid = $(this).attr('cid');
             $.ajax({
-            url		:	"/TNAN/includes/php/action.php",
+            url		:	"/TNAN/includes/php/function.php",
             method	:	"POST",
             data	:	{get_seleted_Category:1,categories_ID:cid},
             success	:	function(data){
@@ -88,11 +85,11 @@
 // FUNCTION FOR SEARCH FOOD
     $("#search_btn").click(function(e){
         e.preventDefault();
-        $("#get_product").html("<div class='alert bg-light text-danger text-center' role='alert'><h5>Loading...</h5></div>");
         var keyword = $("#search").val();
+        $("#get_product").html("<div class='alert bg-light text-center' style='color:#AD8B73;' role='alert'><h5>Loading...</h5></div>");
         if(keyword != ""){
             $.ajax({
-            url		:	"/TNAN/includes/php/action.php",
+            url		:	"/TNAN/includes/php/function.php",
             method	:	"POST",
             data	:	{search:1,keyword:keyword},
             success	:	function(data){ 
@@ -108,7 +105,7 @@
 // FUNCTION FOR FETCHING FOOD
     function product(){
         $.ajax({
-            url	:	"/TNAN/includes/php/action.php",
+            url	:	"/TNAN/includes/php/function.php",
             method:	"POST",
             data	:	{getProduct:1},
             success	:	function(data){
@@ -120,7 +117,7 @@
 // FUNCTION FOR CREATING PAGINATION
     function page(){
         $.ajax({
-            url	:	"/TNAN/includes/php/action.php",
+            url	:	"/TNAN/includes/php/function.php",
             method	:	"POST",
             data	:	{page:1},
             success	:	function(data){
@@ -133,7 +130,7 @@
     $("body").delegate("#page","click",function(){
         var pn = $(this).attr("page");
         $.ajax({
-            url	:	"/TNAN/includes/php/action.php",
+            url	:	"/TNAN/includes/php/function.php",
             method	:	"POST",
             data	:	{getProduct:1,setPage:1,pageNumber:pn},
             success	:	function(data){
@@ -145,7 +142,7 @@
 // FUNCTION FOR ADDING QTY IN CART BADGE
     function count_item(){
         $.ajax({
-            url	:	"/TNAN/includes/php/action.php",
+            url	:	"/TNAN/includes/php/function.php",
             method : "POST",
             data : {count_item:1},
             success : function(data){
@@ -154,34 +151,11 @@
         })
     } 
 
-// FUNCTION FOR ADDING QTY IN INBOX BADGE
-    function count_message(){
-        $.ajax({
-            url	:	"/TNAN/includes/php/action.php",
-            method : "POST",
-            data : {count_message:1},
-            success : function(data){
-                $("#inbox_qty").html(data);
-            }
-        })
-    } 
-
-// FUNCTION FOR ADDING QTY IN ANNOUNCEMENT BADGE
-   function count_announcement(){
-    $.ajax({
-        url	:	"/TNAN/includes/php/action.php",
-        method : "POST",
-        data : {count_announcement:1},
-        success : function(data){
-            $("#announcement_qty").html(data);
-        }
-    })
-    }
 
 // FUNCTION FOR ADDING QTY IN PENDING BADGE
    function count_pending(){
     $.ajax({
-        url	:	"/TNAN/includes/php/action.php",
+        url	:	"/TNAN/includes/php/function.php",
         method : "POST",
         data : {count_pending:1},
         success : function(data){
@@ -191,9 +165,9 @@
     }
 
 // FUNCTION FOR GETTING CART ITEM FROM DB 
-    function getCartItem(e){
+    function getCartItem(){
         $.ajax({
-            url	:	"/TNAN/includes/php/action.php",
+            url	:	"/TNAN/includes/php/function.php",
             method : "POST",
             data : {Common:1,getCartItem:1},
             success : function(data){
@@ -206,10 +180,10 @@
 
 // ADDING PRODUCT INTO CART
     $("body").delegate("#addCart","click",function(event){
-        var pid = $(this).attr("pid");
         event.preventDefault();
+        var pid = $(this).attr("pid");
         $.ajax({
-            url	:	"/TNAN/includes/php/action.php",
+            url	:	"/TNAN/includes/php/function.php",
             method : "POST",
             data : {addToCart:1,proId:pid},
             success : function(response){
@@ -256,7 +230,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({    
-                    url	:	"/TNAN/includes/php/action.php",
+                    url	:	"/TNAN/includes/php/function.php",
                     method	:	"POST",
                     data	:	{removeItemFromCart:1,rid:remove_id},
                     success	:	function(response){
@@ -293,7 +267,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({     
-                    url	:	"/TNAN/includes/php/action.php",
+                    url	:	"/TNAN/includes/php/function.php",
                     method	:	"POST",
                     data	:	{removeAll:1},
                     success	:	function(response){
@@ -332,7 +306,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url	:	"/TNAN/includes/php/action.php",
+                    url	:	"/TNAN/includes/php/function.php",
                     method	:	"POST",
                     data	:	{updateCartItem:1,update_id:update_id,quantity:qty},
                     success	:	function(response){
@@ -545,7 +519,7 @@
     function inbox(){
         $('#inboxModal').modal('show');
         $.ajax({
-            url: '/TNAN/includes/php/action.php',
+            url: '/TNAN/includes/php/function.php',
             method: 'POST',
             data: {inboxID: 1},
             success : function(data) {
@@ -568,7 +542,7 @@
             }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                url: '/TNAN/includes/php/action.php',
+                url: '/TNAN/includes/php/function.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {inboxMessage: id},
@@ -593,7 +567,7 @@
     function announcement(){
         $('#announcementModal').modal('show');
         $.ajax({
-            url: '/TNAN/includes/php/action.php',
+            url: '/TNAN/includes/php/function.php',
             method: 'POST',
             data: {announcementID: 1},
             success : function(data) {
@@ -615,7 +589,7 @@
             }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                url: '/TNAN/includes/php/action.php',
+                url: '/TNAN/includes/php/function.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {removeAnnouncementID: id},
@@ -639,7 +613,7 @@
 // FUNCTION FOR FETCH CUSTOMER DETAILS
     function customerDetails(){
         $.ajax({
-            url: '/TNAN/includes/php/action.php',
+            url: '/TNAN/includes/php/function.php',
             method: 'POST',
             dataType: 'json',
             data: {customerDetails: 1},
@@ -707,7 +681,7 @@
 // FUNCTION FOR REMOVE ANNOUNCEMENT
     function removeAnnouncement(){
         $.ajax({
-        url: '/TNAN/includes/php/action.php',
+        url: '/TNAN/includes/php/function.php',
         type: 'POST',
         dataType: 'json',
         data: {removeAnnouncementID: 1},
@@ -735,7 +709,7 @@
     function purchaseHistory(id){
         $('#purchaseHistoryModal').modal('show');
         $.ajax({
-            url: '/TNAN/includes/php/action.php',
+            url: '/TNAN/includes/php/function.php',
             method: 'POST',
             data: {purchaseHistory: id},
             success : function(data) {
@@ -748,7 +722,7 @@
     function pending(){
         $('#pendingModal').modal('show');
             $.ajax({
-                url: '/TNAN/includes/php/action.php',
+                url: '/TNAN/includes/php/function.php',
                 method: 'POST',
                 data: {pendingID: 1},
                 success : function(data) {
@@ -770,7 +744,7 @@
         }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-            url: '/TNAN/includes/php/action.php',
+            url: '/TNAN/includes/php/function.php',
             type: 'POST',
             dataType: 'json',
             data: {received: id},

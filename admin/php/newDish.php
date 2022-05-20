@@ -5,6 +5,7 @@
     $foodCategory = $_POST['foodCategory'];
     $foodName = $_POST['foodName'];
     $foodPrice = $_POST['foodPrice'];
+    $foodStock = $_POST['foodStock'];
     $foodDescription = $_POST['foodDescription'];
     
         // Check if the Food are already exist
@@ -18,7 +19,7 @@
             exit();  
         }else{
             // Function for uploading foodImage
-            $target_dir = "../assets/foodPhoto/";
+            $target_dir = "C:/xampp/htdocs/TNAN/admin/assets/foodPhoto/";
             $target_file = $target_dir . basename($_FILES["foodImage"]["name"]);
             $uploadOk = 1;
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -52,7 +53,7 @@
             } 
             // if everything is ok, try to upload file
             else {
-                    $new = "INSERT INTO `food`(`foodImage`, `foodName`, `foodCategory`, `foodDescription`, `foodPrice`) VALUES ('$foodImage','$foodName','$foodCategory','$foodDescription','$foodPrice')";
+                    $new = "INSERT INTO `food`(`foodImage`, `foodName`, `foodCategory`, `foodStock`, `foodDescription`, `foodPrice`) VALUES ('$foodImage','$foodName','$foodCategory', '$foodStock','$foodDescription','$foodPrice')";
                     $addfood = mysqli_query($con, $new);
                     if($addfood){
                       move_uploaded_file($_FILES["foodImage"]["tmp_name"],$target_file);

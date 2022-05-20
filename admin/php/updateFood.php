@@ -11,6 +11,7 @@
     $updateName = $_POST['updateName'];
     $updatePrice = $_POST['updatePrice'];
     $updateCategory = $_POST['updateCategory'];
+    $updateStock = $_POST['updateStock'];
     $updateDescription = $_POST['updateDescription'];
 
     if(!empty($_FILES['updateImage']["name"])){
@@ -48,7 +49,7 @@
                             }
                         }
                     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                    $sql = "UPDATE `food` SET `foodImage`='$updateImage',`foodName`='$updateName',`foodCategory`='$updateCategory',
+                    $sql = "UPDATE `food` SET `foodImage`='$updateImage',`foodName`='$updateName',`foodCategory`='$updateCategory', `foodStock`='$updateStock' ,
                     `foodDescription`='$updateDescription',`foodPrice`='$updatePrice'WHERE `foodID` =  '$updateID'";
                     $result = mysqli_query($con, $sql);
                     if($result){
@@ -61,7 +62,7 @@
                 }
             }
         }else{
-            $sql = "UPDATE `food` SET `foodName`='$updateName',`foodCategory`='$updateCategory',
+            $sql = "UPDATE `food` SET `foodName`='$updateName',`foodCategory`='$updateCategory', `foodStock`='$updateStock' ,
             `foodDescription`='$updateDescription',`foodPrice`='$updatePrice' WHERE `foodID` =  '$updateID'";
             $result = mysqli_query($con, $sql);
             if($result){

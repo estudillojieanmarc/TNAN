@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2022 at 08:14 AM
+-- Generation Time: May 20, 2022 at 07:48 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -67,7 +67,11 @@ INSERT INTO `cart` (`id`, `p_id`, `user_id`, `qty`) VALUES
 (117, 14, 7, 1),
 (350, 9, 19, 1),
 (445, 9, 47, 1),
-(446, 10, 47, 1);
+(446, 10, 47, 1),
+(450, 10, 50, 2),
+(451, 12, 50, 1),
+(452, 11, 50, 1),
+(453, 9, 50, 1);
 
 -- --------------------------------------------------------
 
@@ -85,15 +89,16 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`categories_ID`, `categories`) VALUES
-(1, 'Aesthetic'),
-(2, 'Vintage'),
-(3, 'Rap Tees'),
-(4, 'Band Shirt'),
-(5, 'Soft Outfit'),
-(6, 'Comfy Outfit'),
-(7, 'Casual'),
-(8, 'Formal'),
-(9, 'Dress');
+(1, 'Blouse'),
+(2, 'Crop Top'),
+(3, 'Sweater/Jacket'),
+(4, 'Tube top'),
+(5, 'Pants/Trousers'),
+(6, 'Shorts'),
+(7, 'Skirts'),
+(8, 'Shirt'),
+(9, 'Dress'),
+(12, 'Swim Suits');
 
 -- --------------------------------------------------------
 
@@ -150,30 +155,36 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`foodID`, `foodImage`, `foodName`, `foodCategory`, `foodStock`, `foodDescription`, `foodPrice`, `foodStatus`) VALUES
-(9, '24.jpg', 'Outfit (24)', 3, '12', '1 BuFashion for Lorem ipsum dolor si', 500, 0),
-(10, '23.jpg', 'Outfit (23)', 1, '1', '2 LitFashion for Lorem ipsum dolor si', 600, 0),
-(11, '22.jpg', 'Outfit (22)', 10, '23', 'PansFashion for Lorem ipsum dolor si', 850, 0),
-(12, '21.jpg', 'Outfit (21)', 9, '8', 'GrahFashion for Lorem ipsum dolor si', 500, 0),
-(13, '20.jpg', 'Outfit (20)', 8, '9', 'SiniFashion for Lorem ipsum dolor si', 700, 0),
-(14, '19.jpg', 'Outfit (19)', 7, '6', 'PinakbeFashion for Lorem ipsum dolor si', 400, 0),
-(15, '18.jpg', 'Outfit (18)', 7, '5', 'TakoFashion for Lorem ipsum dolor si', 500, 0),
-(16, '17.jpg', 'Outfit (17)', 6, '13', 'SizzlFashion for Lorem ipsum dolor si', 300, 0),
-(17, '16.jpg', 'Outfit (16)', 5, '4', 'ChFashion for Lorem ipsum dolor si', 600, 0),
-(18, '15.jpg', 'Outfit (15)', 4, '2', 'HoliFashion for Lorem ipsum dolor si', 500, 0),
-(19, '14.jpg', 'Outfit (14)', 3, '1', 'goFashion for Lorem ipsum dolor si', 600, 0),
-(20, '13.jpg', 'Outfit (13)', 2, '9', 'An iFashion for Lorem ipsum dolor si', 1000, 0),
-(21, '12.jpg', 'Outfit (12)', 1, '5', '1.Fashion for Lorem ipsum dolor si', 500, 0),
-(22, '11.jpg', 'Outfit (11)', 10, '4', 'FiliFashion for Lorem ipsum dolor si', 850, 0),
-(23, '10.jpg', 'Outfit (10)', 9, '4', 'StraFashion for Lorem ipsum dolor si', 500, 0),
-(24, '9.jpg', 'Outfit (09)', 8, '2', 'AdFashion for Lorem ipsum dolor si', 160, 0),
-(25, '8.jpg', 'Outfit (08)', 7, '5', 'GiniFashion for Lorem ipsum dolor si', 600, 0),
-(26, '7.jpg', 'Outfit (07)', 6, '7', 'NilFashion for Lorem ipsum dolor si', 800, 0),
-(27, '6.jpg', 'Outfit (06)', 5, '8', 'A salaFashion for Lorem ipsum dolor si', 600, 0),
-(28, '5.jpg', 'Outfit (05)', 2, '3', 'KapeFashion for Lorem ipsum dolor si', 450, 0),
-(29, '4.jpg', 'Outfit (04)', 6, '4', 'Fashion for Lorem ipsum dolor si', 700, 0),
-(30, '3.png', 'Outfit (03)', 6, '3', 'Fashion for Lorem ipsum dolor si', 800, 0),
-(33, '2.jpg', 'Outfit (02)', 6, '4', 'Fashion for Lorem ipsum dolor si', 1000, 0),
-(34, '1.jpg', 'Outfit (01)', 4, '5', 'Lorem ipsum dolor Fashion for ', 500, 0);
+(9, 'aa.jpg', 'Outfit (22)', 3, '12', '1 BuFashion for Lorem ipsum dolor si', 500, 0),
+(10, 'i.jpg', 'Outfit (21)', 1, '1', '2 LitFashion for Lorem ipsum dolor si', 600, 0),
+(11, 'c.jpg', 'Outfit (22)', 10, '23', 'PansFashion for Lorem ipsum dolor si', 850, 0),
+(12, 'd.jpg', 'Outfit (20)', 9, '8', 'GrahFashion for Lorem ipsum dolor si', 500, 0),
+(13, 'e.jpg', 'Outfit (19)', 8, '9', 'SiniFashion for Lorem ipsum dolor si', 700, 0),
+(14, 'f.jpg', 'Outfit (18)', 7, '6', 'PinakbeFashion for Lorem ipsum dolor si', 400, 0),
+(15, 'g.jpg', 'Outfit (17)', 7, '5', 'TakoFashion for Lorem ipsum dolor si', 500, 0),
+(16, 'h.jpg', 'Outfit (16)', 6, '13', 'SizzlFashion for Lorem ipsum dolor si', 300, 0),
+(17, 'b.jpg', 'Outfit (15)', 5, '4', 'ChFashion for Lorem ipsum dolor si', 600, 0),
+(18, 'j.jpg', 'Outfit (14)', 4, '2', 'HoliFashion for Lorem ipsum dolor si', 500, 0),
+(19, 'k.jpg', 'Outfit (13)', 3, '1', 'goFashion for Lorem ipsum dolor si', 600, 0),
+(20, 'l.jpg', 'Outfit (12)', 2, '9', 'An iFashion for Lorem ipsum dolor si', 1000, 0),
+(21, 'm.jpg', 'Outfit (11)', 1, '5', '1.Fashion for Lorem ipsum dolor si', 500, 0),
+(22, 'n.jpg', 'Outfit (11)', 10, '4', 'FiliFashion for Lorem ipsum dolor si', 850, 0),
+(23, 'o.jpg', 'Outfit (10)', 9, '4', 'StraFashion for Lorem ipsum dolor si', 500, 0),
+(24, 'p.jpg', 'Outfit (09)', 8, '2', 'AdFashion for Lorem ipsum dolor si', 160, 0),
+(25, 'q.jpg', 'Outfit (08)', 7, '5', 'GiniFashion for Lorem ipsum dolor si', 600, 0),
+(26, 'r.jpg', 'Outfit (07)', 6, '7', 'NilFashion for Lorem ipsum dolor si', 800, 0),
+(27, 's.jpg', 'Outfit (06)', 5, '8', 'A salaFashion for Lorem ipsum dolor si', 600, 0),
+(28, 't.jpg', 'Outfit (05)', 2, '3', 'KapeFashion for Lorem ipsum dolor si', 450, 0),
+(29, 'u.jpg', 'Outfit (04)', 6, '4', 'Fashion for Lorem ipsum dolor si', 700, 0),
+(30, 'v.jpg', 'Outfit (03)', 6, '3', 'Fashion for Lorem ipsum dolor si', 800, 0),
+(33, 'w.jpg', 'Outfit (02)', 6, '1', 'Fashion for Lorem ipsum dolor si', 1000, 0),
+(34, 'x.jpg', 'Outfit (01)', 4, '1', 'Lorem ipsum dolor Fashion for Fashion for ', 500, 0),
+(35, 'y.jpg', 'Outfit (23) ', 1, '1', 'Lorem ipsum dolor si si la feisi a feisi  a feisi ', 300, 0),
+(36, 'tire.jpg', 'Outfit (243) ', 1, '', 'fashion for leni robredo', 300, 0),
+(37, 'tire.jpg', 'Outfit (24) ', 1, '2', 'Tmfksdsd  dps fmosd m df sp ps ', 300, 0),
+(38, 'wd-40.png', 'Outfit (25) ', 4, '4', 'ad ad asd as as das da da sda s ad', 300, 0),
+(39, 'helmet.jpg', 'Outfit (26) ', 8, '4', 'dasdad asd ads da sda sd a', 300, 0),
+(40, 'fttcs.jpg', 'Outfit (27) ', 3, '3', 'try ged asda sd das da sd', 300, 0);
 
 -- --------------------------------------------------------
 
@@ -329,13 +340,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=448;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=454;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categories_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `categories_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -347,7 +358,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `foodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `foodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `inbox`

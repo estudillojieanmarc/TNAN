@@ -59,21 +59,20 @@
         </div>
         <div style="margin-left:15%">
             <div class="container bg-white pt-5 mt-2">
-                <h4 class="mb-3 pt-5"><i class="bi bi-calendar3-fill"></i> CLOTHES ACTIVE</h4>
+                <h4 class="mb-3 pt-5"><i class="bi bi-calendar3-fill"></i> CLOTHES NO STOCK</h4>
                 <ul class="nav nav-tabs mb-4">
                     <li class="nav-item">
-                        <a class="nav-link active" href="http://localhost/TNAN/admin/clothesA.php">&nbsp;&nbsp;ACTIVE&nbsp;&nbsp;</a>
+                        <a class="nav-link" style="color:#AD8B73;" href="http://localhost/TNAN/admin/clothesA.php">ACTIVE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color:#AD8B73;" href="http://localhost/TNAN/admin/clothesNS.php">NO STOCK</a>
+                        <a class="nav-link active" href="http://localhost/TNAN/admin/clothesNS.php">&nbsp;&nbsp;NO STOCK&nbsp;&nbsp;</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="color:#AD8B73;" href="http://localhost/TNAN/admin/clothesNA.php">NOT ACTIVE</a>
                     </li>
                 </ul>
                 <div class="d-flex col-12">
-                    <a type="button" class="btn text-white mx-1" style="background-color: #826F66 !important;" href="http://localhost/TNAN/admin/clothesA.php"> <i class="fas fa-redo px-1"></i> REFRESH </a>
-                    <button type="button" class="btn text-white mx-1" style="background-color: #826F66 !important;" data-bs-toggle="modal" data-bs-target="#addDish"> <i class="fas fa-plus px-1"></i> ADD PRODUCT</button>
+                    <a type="button" class="btn text-white mx-1" style="background-color: #826F66 !important;" href="http://localhost/TNAN/admin/clothesNS.php"> <i class="fas fa-redo px-1"></i> REFRESH </a>
                 </div>
             </div>
             
@@ -101,62 +100,6 @@
             </div>
         </div>
     <!-- MAIN CONTENT END -->
-
-    <!-- ADD DISH MODAL -->
-        <div class="modal fade" id="addDish" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col-11">
-                            <h5 class="modal-title" id="exampleModalLabel" style="font-size:23px;"><i class="fas fa-plus"></i> New <span style="color:#AD8B73;">Product</span> </h5>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                    </div>
-                    <div class="container">
-                    <form id="newDish">
-                    <div class="row g-4 mb-1">
-                        <div class="col-7">
-                            <label class="form-label">Insert Image:</label>
-                            <input class="form-control" type="file" name="foodImage" id="foodImage" required>
-                        </div>
-                        <div class="col-5">
-                            <label class="form-label">Category:</label>
-                            <select class="form-select" aria-label="Default select example" name="foodCategory" id="foodCategory" required></select>
-                        </div>
-                    </div>   
-                    <div class="row g-4 mb-1">
-                        <div class="col-6">
-                            <label class="form-label">Product:</label>
-                            <input type="text" class="form-control" name="foodName" id="foodName" required>
-                        </div>
-                        <div class="col-3">
-                            <label class="form-label">Price:</label>
-                            <input type="text" class="form-control" name="foodPrice" id="foodPrice" required>
-                        </div>
-                        <div class="col-3">
-                            <label class="form-label">Stock:</label>
-                            <input type="number" min="0" class="form-control" name="foodStock" id="foodStock" required>
-                        </div>
-                    </div>
-                    <div class="mb-1 mt-2">
-                        <label class="form-label">Description:</label>
-                        <textarea style="resize:none;" class="form-control" name="foodDescription" id="foodDescription" rows="3" required></textarea>
-                        </div>
-                    </div>
-                <div class="row mt-4">
-                    <div class="col-5 ms-auto">
-                        <button type="button" class="btn text-white" style="background-color: #826F66 !important;" name="foodSubmit" id="foodSubmit">Add Product</button>
-                    </div>
-                </div>
-            </form>
-                </div>
-                </div>
-            </div>
-        </div>
-    <!-- END ADD DISH MODAL -->
 
     <!-- UPDATE DISH MODAL -->
         <div class="modal fade" id="updateFoodModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -249,87 +192,6 @@
         </script>
     <!-- END DETABLES BEHAVIOR -->
 
-    <!-- ADD DISH FUNCTION -->
-        <script>
-            $('#foodSubmit').click(function(){
-                var currentForm = $('#newDish')[0];
-                var data = new FormData(currentForm);
-            if($('#foodImage').val() == '' || $('#foodName').val() =='' || $('#foodCategory').val() =='' || $('#foodPrice').val() =='' || $('#foodDescription').val() == ''){
-                Swal.fire(
-                'Insert Failed',
-                'Please, Input all missing Fields',
-                'warning'
-                )           
-            }else{
-                $.ajax({
-                url: "/TNAN/admin/php/newDish.php",
-                method: "POST",
-                dataType: "text",
-                data:data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    if(response == 'Sorry, The food are already exist'){
-                                 Swal.fire(
-                                'Register Failed',
-                                'Sorry, The product are already Exist',
-                                'error'
-                                )
-                        }else if(response == 'File is not an image.'){
-                                Swal.fire(
-                                'Register Failed',
-                                'Sorry, The file is not an image.',
-                                'error'
-                                )
-                        }else if(response == 'Sorry, your file is too large.'){
-                                Swal.fire(
-                                'Register Failed',
-                                'Sorry, your file is too large.',
-                                'error'
-                                )
-                        }else if(response == 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.'){
-                                Swal.fire(
-                                'Register Failed',
-                                'Sorry, only JPG, JPEG, PNG & GIF files are allowed.',
-                                'error'
-                                )
-                        }else if(response == 'Sorry, your file was not uploaded.'){
-                                Swal.fire(
-                                'Register Failed',
-                                'Sorry, your file was not uploaded.',
-                                'error'
-                                )
-                        }else if(response == 'Sorry, Registered Failed'){
-                                Swal.fire(
-                                'Stored Registered',
-                                'Sorry, Registered Failed',
-                                'error'
-                                )
-                        }else if(response == 'New food Stored Successfully.'){
-                            Swal.fire({
-                            title: 'Stored Successfully',
-                            text: "New Product Stored Successfully.",
-                            icon: 'success',
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Continue'
-                            }).then((result) => {
-                            if (result.isConfirmed) {
-                                getFoodA();
-                                $("#newDish").trigger("reset");
-                            }
-                            })
-                        }
-                },
-                error:function(er){
-                console.log(er)
-                }
-                })
-            }
-        })
-        </script>
-    <!-- END OF ADD DISH FUNCTION -->
 
     <!-- FUNCTION FOR FETCH DATA FOR THE UPDATE MODAL -->
          <script>    
@@ -433,7 +295,7 @@
                 $.ajax({
                     url	:	"/TNAN/admin/fetchdata/getFood.php",
                     method:	"POST",
-                    data	:	{getFoodA:1},
+                    data	:	{getFoodNS:1},
                     success	:	function(data){
                         $("#foodData").html(data);
                     }

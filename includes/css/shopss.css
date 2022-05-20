@@ -7,7 +7,9 @@
     /* font-family: 'Roboto', sans-serif; */
     font-family: 'Poppins', sans-serif;
 }
-
+.body{
+    overflow-x: hidden;
+}
 .navbar{
     background-color:#AD8B73 !important;
     font-size: 16px;
@@ -20,10 +22,11 @@
 }
 .sidenav {
     width: 100%;
+    display:list-item;
     position: fixed;
     z-index: 1;
-    top: 100px;
-    left: 70px;
+    top: 90px;
+    left:20px;
     background: transparent;
     overflow-x: hidden;
     padding: 8px 0;
@@ -48,7 +51,7 @@
     color: #e9e9e9 !important;
 }
 .dropdown-menu li a:hover, .dropdown-item:hover{
-    background-color:#826F66;
+    background-color:#826F66 !important;
     color: #e9e9e9 !important;
     outline: none;
 }

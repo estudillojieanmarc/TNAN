@@ -12,8 +12,8 @@
         <link href="/TNAN/admin/css/admin.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
-        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/fttcs.png">
-        <title>Tindahan ni Aling Nena</title>
+        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
+        <title>Zsaliah's Closet</title>
     <!-- END OF STYLE -->
 </head>
 <body>
@@ -22,9 +22,9 @@
     <!--PHP FUNCTION  -->
          <?php session_start();
             include 'config.php';
-            $sql1 = "SELECT `status` FROM `complaint` WHERE `status` = 0 ORDER BY `complaint_id`";
-            $result1 = mysqli_query($con, $sql1);
-            $complaint = mysqli_num_rows($result1);
+            // $sql1 = "SELECT `status` FROM `complaint` WHERE `status` = 0 ORDER BY `complaint_id`";
+            // $result1 = mysqli_query($con, $sql1);
+            // $complaint = mysqli_num_rows($result1);
 
             $sql2 = "SELECT `customerID` FROM `customers` ORDER BY `customerID`";
             $result2 = mysqli_query($con, $sql2);
@@ -141,7 +141,7 @@
                                         </div>   
                                         <div class="col-7">
                                             <h5 class="card-title text-light">TOTAL PRODUCTS</h5>
-                                            <p class="card-text fs-2 px-5 text-light"><?php echo $complaint ?></p>
+                                            <p class="card-text fs-2 px-5 text-light">1</p>
                                         </div>   
                                 </div>   
                             </div>
@@ -152,7 +152,7 @@
                 <div class="row mx-1">
                     <div class="card shadow">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold pb-2"><i class="fas fa-project-diagram"></i> NEW TRANSACTION DETAILS</h5>
+                            <h5 class="card-title fw-bold pb-2"><i class="fas fa-project-diagram"></i> RECENT TRANSACTION DETAILS</h5>
                             <table  class="table table-bordered text-center aligb-middle">
                                 <thead>
                                     <tr>

@@ -11,8 +11,8 @@
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
         <link href="/TNAN/admin/css/stylesheet.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
-        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/fttcs.png">
-        <title>Tindahan ni Aling Nena</title>
+        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
+        <title>Zsaliah's Closet</title>
 </head>
 <body>
 
@@ -64,19 +64,19 @@
                 <h4 class="mb-3 pt-5"><i class="fab fa-paypal"></i> TRANSACTION DETAILS</h4>
                 <ul class="nav nav-tabs mb-4">
                         <li class="nav-item">
-                            <a class="nav-link text-primary" href="/TNAN/admin/transaction.php">ORDER</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/transaction.php">ORDER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-primary" href="/TNAN/admin/preparing.php">PREPARING</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/preparing.php">PREPARING</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="/TNAN/admin/deliver.php">&nbsp;&nbsp;TO DELIVER&nbsp;&nbsp;</a>
+                            <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/deliver.php">TO DELIVER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-primary" href="/TNAN/admin/received.php">RECEIVED</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/received.php">RECEIVED</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  active" href="/TNAN/admin/Completed.php">&nbsp;&nbsp;COMPLETED&nbsp;&nbsp;</a>
+                            <a class="nav-link active" href="/TNAN/admin/Completed.php">&nbsp;&nbsp;COMPLETED&nbsp;&nbsp;</a>
                         </li>
                 </ul>
                     <div class="row">

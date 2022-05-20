@@ -10,8 +10,8 @@
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
         <link href="/TNAN/admin/css/stylesheet.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
-        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/fttcs.png">
-        <title>Tindahan ni Aling Nena</title>
+        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
+        <title>Zsaliah's Closet</title>
 </head>
 <body>
 
@@ -62,14 +62,14 @@
                 <h4 class="mb-3 pt-5"><i class="fas fa-user"></i> CUSTOMER DETAILS</h4>
                     <ul class="nav nav-tabs mb-4">
                         <li class="nav-item">
-                            <a class="nav-link text-primary" href="http://localhost/TNAN/admin/customerA.php">ACTIVE</a>
+                            <a class="nav-link" style="color:#AD8B73;" href="http://localhost/TNAN/admin/customerA.php">ACTIVE</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="http://localhost/TNAN/admin/customerNA.php">&nbsp;&nbsp;NOT ACTIVE&nbsp;&nbsp;</a>
                         </li>
                     </ul>
             <div class="d-flex col-12">
-            <a type="button" class="btn btn-outline-dark" href="http://localhost/TNAN/admin/customerNA.php"> <i class="fas fa-redo px-1"></i> REFRESH </a>
+            <a type="button" class="btn text-white" style="background-color: #826F66 !important;" href="http://localhost/TNAN/admin/customerNA.php"> <i class="fas fa-redo px-1"></i> REFRESH </a>
             </div>
         </div>
             <div class="container my-5 pt-1">
@@ -105,7 +105,7 @@
                     <input type="hidden" name="updateID" id="updateID">
                     <div class="row mb-3">
                         <div class="col-11">
-                            <h5 class="modal-title" id="exampleModalLabel" style="font-size:23px;"><i class="fas fa-user"></i> Customer <span class="text-danger">Details</span></h5>
+                            <h5 class="modal-title" id="exampleModalLabel" style="font-size:23px;"><i class="fas fa-user"></i> Customer <span style="color:#AD8B73;">Details</span></h5>
                         </div>
                         <div class="col-1">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

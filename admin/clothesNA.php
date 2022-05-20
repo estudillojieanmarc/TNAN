@@ -10,10 +10,10 @@
         <link href="/TNAN/admin/css/datables.css" rel="stylesheet">
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
         <link href="/TNAN/admin/css/stylesheet.css" rel="stylesheet">
-        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/fftcs.png">
+        <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <title>Tindahan ni Aling Nena</title>
+        <title>Zsaliah's Closet</title>
     <!-- END OF STYLE -->
 </head>
 <body>
@@ -62,17 +62,20 @@
         </div>
         <div style="margin-left:15%">
             <div class="container bg-white pt-5 mt-2">
-                <h4 class="mb-3 pt-5"><i class="bi bi-calendar3-fill"></i> CLOTHES DETAILS</h4>
+                <h4 class="mb-3 pt-5"><i class="bi bi-calendar3-fill"></i> CLOTHES NO ACTIVE</h4>
                 <ul class="nav nav-tabs mb-4">
                     <li class="nav-item">
-                        <a class="nav-link " href="http://localhost/TNAN/admin/clothesA.php">ACTIVE</a>
+                        <a class="nav-link" style="color:#AD8B73;" href="http://localhost/TNAN/admin/clothesA.php">ACTIVE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#AD8B73;" href="http://localhost/TNAN/admin/clothesNS.php">NO STOCK</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="http://localhost/TNAN/admin/clothesNA.php">&nbsp;&nbsp;NOT ACTIVE&nbsp;&nbsp;</a>
                     </li>
                 </ul>
                 <div class="d-flex col-12">
-                    <a type="button" class="btn btn-outline-dark mx-1" href="http://localhost/TNAN/admin/clothesNA.php"> <i class="fas fa-redo px-1"></i> REFRESH </a>
+                    <a type="button" class="btn text-white mx-1" style="background-color: #826F66 !important;" href="http://localhost/TNAN/admin/clothesNA.php"> <i class="fas fa-redo px-1"></i> REFRESH </a>
                 </div>
             </div>
             
@@ -80,8 +83,8 @@
                 <div class="row">
                     <div class="col-3 ms-auto">
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" id="myInput" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success px-3" type="button">Search</button>
+                        <input class="form-control me-1" type="search" id="myInput" placeholder="Search" aria-label="Search">
+                        <button class="btn text-white px-3" style="background-color: #826F66 !important;" type="button">Search</button>
                     </form>
                     </div>
                 </div>
@@ -102,13 +105,13 @@
     <!-- MAIN CONTENT END -->
 
     <!-- UPDATE DISH MODAL -->
-      <div class="modal fade" id="updateFoodModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="updateFoodModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-body">
                     <div class="row mb-3">
                         <div class="col-11">
-                            <h5 class="modal-title" id="exampleModalLabel" style="font-size:23px;"><i class="fas fa-edit"></i> Update <span class="text-danger">Dish</span> </h5>
+                            <h5 class="modal-title" id="exampleModalLabel" style="font-size:23px;"><i class="fas fa-edit"></i> Update <span style="color:#AD8B73;">Dish</span> </h5>
                         </div>
                         <div class="col-1">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -141,8 +144,8 @@
                         <select class="form-select" aria-label="Default select example" name="updateCategory" id="updateCategory"></select>
                     </div>
                     <div class="col-4">
-                        <label class="form-label">Status:</label>
-                        <input class="form-control" type="text" value="Inactive" style="color:red; background:transparent" readonly>
+                        <label class="form-label">Stock:</label>
+                        <input class="form-control" type="number" min="0" name="updateStock" id="updateStock">
                     </div>
                 </div>   
 
@@ -154,7 +157,7 @@
 
                 <div class="row mt-4">
                     <div class="col-4 ms-auto">
-                        <button type="button" class="btn btn-primary"  name="updateBtn" id="updateBtn">Save Changes</button>
+                        <button type="button" class="btn text-white" style="background-color: #826F66 !important;" name="updateBtn" id="updateBtn">Save Changes</button>
                     </div>
                 </div>
         </form>
@@ -193,7 +196,7 @@
     <!-- END DETABLES BEHAVIOR -->
 
     <!-- FUNCTION FOR FETCH DATA FOR THE UPDATE MODAL -->
-         <script>    
+      <script>    
                 function update(id){
                     $('#updateFoodModal').modal('show')
                     $.ajax({
@@ -207,6 +210,7 @@
                         $('#updateImage').attr("src","/TNAN/admin/assets/foodPhoto/"+response[0].foodImage)
                         $('#updateName').val(response[0].foodName)
                         $('#updateCategory').val(response[0].foodCategory)
+                        $('#updateStock').val(response[0].foodStock)
                         $('#updateDescription').val(response[0].foodDescription)
                         $('#updatePrice').val(response[0].foodPrice)
                         })
