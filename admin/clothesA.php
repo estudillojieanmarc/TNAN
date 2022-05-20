@@ -9,7 +9,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="/TNAN/admin/css/datables.css" rel="stylesheet">
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
-        <link href="/TNAN/admin/css/stylesheet.css" rel="stylesheet">
+        <link href="/TNAN/admin/css/admin.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
         <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/fttcs.png">
@@ -18,8 +18,8 @@
 </head>
 <body>
     <!-- NAVBAR -->
-     <nav class="navbar navbar-expand-lg navbar-dark bg-dark  fixed-top px-5">
-        <a class="navbar-brand me-auto ms-2" href="#">DASHBOARD <i class="fas fa-columns px-1"></i></a>
+         <nav style="background-color: #d5bbac !important; " class="navbar navbar-expand-lg navbar-dark  py-2 fixed-top px-5">
+        <a class="navbar-brand me-auto ms-2" href="#" style="color:#201812">Zsaliah's Closet <i class="fas fa-columns px-1"></i></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -27,8 +27,8 @@
                 <div class="navbar-nav ms-auto pt-2 text-white">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item px-2 dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="/TNAN/admin/assets/images/fttcs.png" style="width: 40px; clip-path: circle(); margin-top: -4px;">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-4"></i>                           
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
                             <style>
@@ -48,8 +48,8 @@
     <!-- END NAVBAR -->
 
     <!-- MAIN CONTENT -->
-        <div class="w3-sidebar bg-light w3-bar-block text-dark" style="width:15%;">
-            <h3 class="w3-bar-item text-light text-center"><img class="card-img-top pt-5" src="/TNAN/admin/assets/images/fttcs.png"></h3>
+        <div class="w3-sidebar w3-bar-block text-dark" style="width:15%; background-color: #d5bbac !important;">
+            <h3 class="w3-bar-item text-light text-center"><img class="card-img-top pt-5" style="border-radius:50%;" src="/TNAN/admin/assets/images/logo.png"></h3>
             <a href="/TNAN/admin/admin.php" class="w3-bar-item w3-button pt-3 sm-py-3 text-center">DASHBOARD</a>
             <a href="/TNAN/admin/clothesA.php" class="w3-bar-item w3-button pt-3 sm-py-3 text-center">PRODUCTS</a>
             <a href="/TNAN/admin/customerA.php" class="w3-bar-item w3-button pt-3 sm-py-3 text-center">CUSTOMER</a>  
