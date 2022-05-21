@@ -376,5 +376,41 @@
         </script>
     <!-- FUNCTION FOR UPDATE PRODUCT -->
 
+    <!--FUNCTION FOR DELETING PRODUCT -->
+        <script>
+            function deleteProduct(id){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to delete this?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                        url: '/TNAN/admin/php/delete.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {deleteProduct: id},
+                    });
+                    Swal.fire({
+                    title: 'Delete Succesfully',
+                    text:  "Product report was delete successfully",
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Continue'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        getFoodNA();
+                    }
+                    })
+                    }
+                })
+            }
+        </script>
+    <!--FUNCTION FOR DELETING PRODUCT -->
+
 </body>
 </html>

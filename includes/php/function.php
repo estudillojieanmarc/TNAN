@@ -11,7 +11,7 @@ if(isset($_POST["identification"])){
 			$customerName = $row["customerName"];
 			$customerImage = $row["customerImage"];
 			echo "
-				<img style='clip-path:circle(); height:25px; width:25px; margin:-4px 7px 0 0' src='/TNAN/admin/assets/customersPhoto/$customerImage'><span>$customerName</span>
+				<img alt='image of users' style='clip-path:circle(); height:25px; width:25px; margin:-4px 7px 0 0' src='/TNAN/admin/assets/customersPhoto/$customerImage'><span>$customerName</span>
 				";
 		}
 	}
@@ -48,7 +48,7 @@ if(isset($_POST["page"])){
 	$pageno = ceil($count/12);
 	for($i=1;$i<=$pageno;$i++){
 		echo "
-			<li class='nav-item mx-1 d-flex'><a class='btn btn-sm px-3 text-white d-flex' style='background-color: #826F66 !important' href='#' page='$i' id='page'>$i</a></li>
+			<li class='nav-item mx-1 d-flex'><a class='btn btn-sm px-3 text-white d-flex ' style='background-color: #826F66 !important; cursor:pointer;' href='#' page='$i' id='page'>$i</a></li>
 		";
 	}
 }
@@ -62,7 +62,7 @@ if(isset($_POST["getProduct"])){
 	}else{
 		$start = 0;
 	}
-	$product_query = "SELECT * FROM food WHERE foodStatus = 0 LIMIT $start,$limit ";
+	$product_query = "SELECT * FROM food WHERE foodStatus = 0 AND foodStock > 0 LIMIT $start,$limit ";
 	$run_query = mysqli_query($con,$product_query);
 	if(mysqli_num_rows($run_query) > 0){
 		while($row = mysqli_fetch_array($run_query)){
@@ -74,21 +74,21 @@ if(isset($_POST["getProduct"])){
 			$foodPrice = $row['foodPrice'];
 			$foodStock = $row['foodStock'];
 			echo "
-				<div class='col-3 py-2'>
-					<div class='card'>
-						<div style='font-weight:500; background-color:transparent;' class='card-header px-3 pt-2'>
-							$foodName
+			<div class='col-3 py-2'>
+				<div class='card'>
+					<div style='font-weight:500; background-color:transparent;' class='card-header px-3 pt-2'>
+						$foodName
+					</div>
+					<div class='card-body'>
+						<img class='card-img-top' src='/TNAN/admin/assets/foodPhoto/$foodImage' style='width:220px; height:200px;'/>
+						<p class='card-text text-dark py-2' style='font-size:14px;'>$foodDescription</p>
+						<div class='row'>
+							<div class='col-6'><italic class='text-secondary' style='font-size:18px;'>₱$foodPrice.00</italic></div>
 						</div>
-						<div class='card-body'>
-							<img class='card-img-top' src='/TNAN/admin/assets/foodPhoto/$foodImage' style='width:100%; height:200px;'/>
-							<p class='card-text text-dark py-2' style='font-size:14px;'>$foodDescription</p>
-							<div class='row'>
-								<div class='col-6'><italic class='text-secondary' style='font-size:18px;'>₱$foodPrice.00</italic></div>
-							</div>
-						</div>
-						<button type='button' pid='$foodID' id='addCart' style='font-size:13px;' class='btn text-white'><i class='fas fa-cart-plus'></i> Add to cart</button>
-						</div>
-				</div>	
+					</div>
+					<button pid='$foodID' id='addCart' style='font-size:13px;' class='btn text-white '><i class='fas fa-cart-plus'></i> Add to cart</button>
+				</div>
+		    </div>	
 			";
 		}
 	}
@@ -116,25 +116,25 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["search"])){
 			$foodPrice = $row['foodPrice'];
 			echo "
 			<div class='col-3 py-2'>
-					<div class='card'>
-						<div style='font-weight:500;' class='card-heading px-3 pt-2'>
-							$foodName
-						</div>
-						<div class='card-body'>
-							<img class='card-img-top' src='/TNAN/admin/assets/foodPhoto/$foodImage' style='width:220px; height:200px;'/>
-							<p class='card-text text-dark py-2' style='font-size:14px;'>$foodDescription</p>
-							<div class='row'>
-								<div class='col-6'><italic class='text-secondary' style='font-size:18px;'>₱$foodPrice.00</italic></div>
-							</div>
-						</div>
-							<button pid='$foodID' id='addCart' style='font-size:13px;' class='btn text-white btn-sm'>Add to cart</button>
+				<div class='card'>
+					<div style='font-weight:500; background-color:transparent;' class='card-header px-3 pt-2'>
+						$foodName
 					</div>
-				</div>	
+					<div class='card-body'>
+						<img class='card-img-top' src='/TNAN/admin/assets/foodPhoto/$foodImage' style='width:220px; height:200px;'/>
+						<p class='card-text text-dark py-2' style='font-size:14px;'>$foodDescription</p>
+						<div class='row'>
+							<div class='col-6'><italic class='text-secondary' style='font-size:18px;'>₱$foodPrice.00</italic></div>
+						</div>
+					</div>
+					<button pid='$foodID' id='addCart' style='font-size:13px;' class='btn text-white '><i class='fas fa-cart-plus'></i> Add to cart</button>
+				</div>
+		    </div>	
 		";
 		}
 	}else{
 		echo "
-			<div class='alert bg-light text-danger text-center' role='alert'><h5>No available product</h5></div>
+			<div class='alert bg-light text-center' style='color:#AD8B73;' role='alert'><h5>No available product</h5></div>
 		";
 	}
 }
@@ -170,33 +170,11 @@ if (isset($_POST["count_item"])) {
 	exit();
 }
 
-// FUNCTION FOR ADDING QTY IN INBOX BADGE
-if (isset($_POST["count_message"])) {
-	if (isset($_SESSION["uid"])) {
-		$sql = "SELECT COUNT(*) AS count_message FROM inbox WHERE is_deleted = 0 AND  user_id = $_SESSION[uid]";
-	}
-	$query = mysqli_query($con,$sql);
-	$row = mysqli_fetch_array($query);
-	echo $row["count_message"];
-	exit();
-}
-
-// FUNCTION FOR ADDING QTY IN ANNOUNCEMENT BADGE
-if (isset($_POST["count_announcement"])) {
-	if (isset($_SESSION["uid"])) {
-		$sql = "SELECT COUNT(*) AS count_announcement FROM announcement";
-	}
-	$query = mysqli_query($con,$sql);
-	$row = mysqli_fetch_array($query);
-	echo $row["count_announcement"];
-	exit();
-}
-
 // FUNCTION FOR ADDING QTY IN PENDING BADGE
 if (isset($_POST["count_pending"])) {
 	if (isset($_SESSION["uid"])) {
 		$deliver = "Deliver";
-		$sql = "SELECT COUNT(*) AS count_pending FROM order_manager WHERE order_status = '$deliver' AND `user_id` = '$_SESSION[uid]'";
+		$sql = "SELECT COUNT(*) AS count_pending FROM order_manager WHERE order_status != 'Complete' AND order_status != 'Cancel' AND order_status != 'Received' AND `user_id` = '$_SESSION[uid]'";
 	}
 	$query = mysqli_query($con,$sql);
 	$row = mysqli_fetch_array($query);
@@ -247,14 +225,14 @@ if (isset($_POST["Common"])) {
 				echo '
 					<tbody class="text-center" style="font-size:14.5px;">
 						<tr>
-							<input type="hidden" name="foodID" id="foodID" value='.$foodID.'>
-							<input type="hidden" name="cart_ID" id="cart_ID" value='.$cartID.'>
+							<input type="hidden" name="foodID[]" id="foodID" value='.$foodID.'>
+							<input type="hidden" class="totalH" name="total[]">
 							<td class="col-0 fw-bold">'.$n.'.</td>
 							<td class="col-2"><img class="img-responsive img-thumbnail" style="height:100px; width:100px;" src="/TNAN/admin/assets/foodPhoto/'.$foodImage.'"/></td>
 							<td class="col-2 foodDescription">'.$foodDescription.'</td>
-							<td class="col-2 foodPrice">₱'.$foodPrice.'.00<input class="price" type="hidden" name="price" value='.$foodPrice.'></td>
-							<td class="col-1 foodStock">'.$foodStock.'<input class="stock" type="hidden" name="stock" value='.$foodStock.'></td>
-							<td class="col-2"><input class="form-control form-control-sm text-center quantity mx-auto" name="quantity" type="number" min="1" value='.$qty.' onchange="net_total()" style="width:3.5rem;"></td>
+							<td class="col-2 foodPrice">₱'.$foodPrice.'.00<input class="price" type="hidden" value='.$foodPrice.'></td>
+							<td class="col-1 foodStock">'.$foodStock.'<input class="stock" type="hidden" value='.$foodStock.'></td>
+							<td class="col-2"><input class="form-control form-control-sm text-center quantity mx-auto" name="quantity[]" type="number" min="1" value='.$qty.' onchange="net_total()" style="width:3.5rem;"></td>
 							<td class="col-1 fw-bold text-center">₱<span class="total"></span>.00</td>
 							<td class="col-2">
 							<button remove_id="'.$foodID.'" class="btn remove" style="border-color: #826F66 !important; color:#826F66" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove item?"><i class="fas fa-trash-alt"></i></button> 
@@ -278,23 +256,23 @@ if (isset($_POST["Common"])) {
 						</div>
 						<div class="row mt-2">
 							<div class="col-md-12">
-								<span style="font-size:19px;" class="text-dark px-5 fw-bold">₱<span name="total_amount" id="total_amount"></span>.00</span>
+								<span style="font-size:19px;" class="text-dark px-4 fw-bold">₱<span name="total_amount" id="total_amount"></span>.00</span>
 							</div>
 						</div>
 						<div class="form-check mt-2">
-						<input class="form-check-input" value="Cash On Delivery" type="radio" name="payment_option" checked>
+						<input class="form-check-input paymentOption" value="Cash On Delivery" type="radio" name="payment_option" checked>
 						<label class="form-check-label">
 							Cash On Delivery
 						</label>
 						</div>
 						<div class="form-check">
-						<input class="form-check-input" value="Paypal" type="radio" name="payment_option">
+						<input class="form-check-input paymentOption" value="G-Cash" type="radio" name="payment_option" disabled>
 						<label class="form-check-label">
-							Paypal
+							G-Cash
 						</label>
 						</div>
 						<div class="row mt-3">
-							<button type="button" id="checkoutBtn" style="background-color: #826F66 !important;" class="btn btn-sm checkoutBtn text-white"> <i class="fab fa-paypal"></i> CHECKOUT NOW </button>
+							<button type="button" id="checkoutBtn" style="background-color: #826F66 !important;" class="btn btn-sm text-white"> <i class="fab fa-paypal"></i> CHECKOUT NOW </button>
 						</div>
 					</div>
 				</div>
@@ -307,7 +285,7 @@ if (isset($_POST["Common"])) {
 						<div class="col-md-12 py-3 mt-5"><h5>YOUR CART IS EMPTY</h5></div>
 					</div>
 					<div class="row text-center">
-						<div class="col-md-12 mb-5"><a class="btn btn-danger btn-sm" href="/TNAN/shop.php">Go Order Now</a></div>
+						<div class="col-md-12 mb-5"><a style="background-color: #826F66 !important;" class="btn btn-sm text-white" href="/TNAN/shop.php">Go Order Now</a></div>
 					</div>
 					';
 		}
@@ -350,131 +328,6 @@ if (isset($_POST["updateCartItem"])) {
 	}
 }
 
-// FUNCTION FETCH INBOX MESSAGE FROM THE DATABASE
-if(isset($_POST["inboxID"])){
-	$inboxQuery = "SELECT a.inbox_id, a.user_Id, a.message, a.date_time , a.is_deleted, b.customerID, b.customerName FROM inbox a , customers b WHERE a.user_Id = b.customerID AND a.is_deleted = 0 AND a.user_Id = $_SESSION[uid] ";
-	$run_query = mysqli_query($con,$inboxQuery);
-	if(mysqli_num_rows($run_query) > 0){
-		while($row = mysqli_fetch_array($run_query)){
-			$inbox_id = $row['inbox_id'];
-			$user_Id   = $row['user_Id'];
-			$message   = $row['message'];
-			$date_time = $row['date_time'];
-			$customerID = $row['customerID'];
-			$customerName = $row['customerName'];
-			$newDate = date('F d, Y',strtotime($date_time));
-			echo "
-			<div class='card mt-3'>
-				<div class='card-body'>
-					<div class='row'>
-						<div class='col-7' style='line-height:13px'>
-							<p class='card-title text-dark fw-bold' style='font-size:16px text-transform:capitalize'>From Admin,</p>
-							<p class='card-title text-dark' style='font-size:14px'>$newDate,</p>
-						</div>
-					</div>
-					<div class='row mt-3'>
-						<div class'col' style='line-height:18px'>
-							<p class='card-text fw-bold text-secondary'style='font-size:15px'>Message:</p>
-							<p class='card-text px-3 mb-4'style='font-size:15px'>$message</p>
-						</div>
-					</div>
-				</div>
-				<button class='btn btn-outline-danger btn-sm' onclick='removeMessage($inbox_id)'>Remove Message</button>
-			</div>         
-			";
-		}
-	}else{
-		echo "
-		<div class='my-5'>
-					<h5 class='text-center'>NO MESSAGE FOR YOU</h5>
-			</div>   
-		
-		";
-	}
-}
-
-// FUNCTION FOR REMOVE INBOX MESSAGE
-if(isset($_POST['inboxMessage'])){
-	$inbox = $_POST['inboxMessage'];
-	$sql = "UPDATE `inbox` SET `is_deleted` = 1 WHERE `inbox_id` = '$inbox'";
-	$result = mysqli_query($con, $sql);
-	if($result){
-		echo 1;
-		exit;
-	}else{
-		echo 0;
-		exit;
-	}
-}
-
-// FUNCTION FETCH ANNOUNCEMENT FROM THE DATABASE
-if(isset($_POST["announcementID"])){
-	// $inboxQuery = "SELECT a.announcement_id, a.announcement_image, a.announcement, a.date_time, b.customerID  FROM `announcement a, customers b`";
-	$inboxQuery = "SELECT * FROM announcement";
-	$run_query = mysqli_query($con,$inboxQuery);
-	if(mysqli_num_rows($run_query) > 0){
-		while($row = mysqli_fetch_array($run_query)){
-			$announcement_id = $row['announcement_id'];
-			$announcement_image = $row['announcement_image'];
-			$announcement   = $row['announcement'];
-			// START DATE
-			$date_time1 = $row['date_time'];
-			$start_date = date('F d, Y',strtotime($date_time1));
-			
-			// END DATE
-			$date_time2 = $row['valid_until'];
-			$end_date = date('F d, Y',strtotime($date_time2));
-
-			echo "
-			<div class='my-4' style='max-width: 100%;'>
-				<div class='row g-0'>
-					<div class='col-md-5'>
-						<img src='/TNAN/admin/assets/announcementPhoto/$announcement_image' height='100%' width='100%'>
-					</div>
-					<div class='col-md-7'>
-					<div class='card-body'>
-						<p class='card-text'><small class='text-muted'>Valid until: $end_date</small></p>
-						<h5 class='card-title'>Dear Valued Customer,</h5>
-						<p class='card-text text-secondary'>$announcement</p>
-						<p class='card-text'><small class='text-muted'>Posted On: $start_date</small></p>
-					</div>
-				</div>
-			</div> 
-			";
-		}
-	}else{
-		echo "
-		<div class='my-5'>
-				<h5 class='text-center'>NO NEW ANNOUNCEMENT FOR NOW</h5>
-		</div>   
-		";
-	}
-}
-
-// FUNCTION FOR REMOVE ANNOUNCEMENT
-if(isset($_POST['removeAnnouncementID'])){
-    $sql = "SELECT * FROM `announcement`";
-	$result = mysqli_query($con,$sql) or die($con->error);
-	if(mysqli_num_rows($result)>0){
-	while($row = mysqli_fetch_array($result)){
-        // CURRENT DATE FROM MANILA
-		date_default_timezone_set("asia/manila");
-		$currentdate = date("F d, Y");
-		// VALID UNTIL / DATE EXPIRATION
-		$announcement_id  = $row['announcement_id'];
-		$valid_until  = $row['valid_until'];
-		$end_date = date('F d, Y',strtotime($valid_until));
-        if($currentdate == $end_date){
-           $sql2 = "DELETE FROM `announcement` WHERE `announcement_id` = '$announcement_id'";  
-           $result2 = mysqli_query($con,$sql2) or die($con->error);
-           if($result2){
-               echo 1;
-           }
-        }
-    }
-	}	
-}
-
 // FETCH CUSTOMER DETAILS
 if(isset($_POST['customerDetails'])){
 	$sql = "SELECT `customerID` FROM `customers` WHERE `customerID` = '$_SESSION[uid]'";
@@ -490,32 +343,29 @@ if(isset($_POST['customerDetails'])){
 
 // FUNCTION FETCH PURCHASE HISTORY FROM THE DATABASE
 if(isset($_POST["purchaseHistory"])){
-	$received = "Received";
-	$sql = "SELECT a.order_id, a.product, a.product_price, a.quantity, b.order_id, b.user_id, b.payment_option, b.date_time_bought,	b.order_status FROM user_orders a, order_manager b WHERE b.order_status = '$received' AND a.order_id = b.order_id AND b.user_id = $_SESSION[uid]";
-	$result = mysqli_query($con,$sql);
-	if(mysqli_num_rows($result) > 0){
+	error_reporting(0);
+	$Received = 'Received';
+	$Complete = 'Complete';
+	$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.date_time_bought, b.order_id, b.product, b.quantity, b.total, c.customerID, c.customerName , d.foodID , d.foodName
+	FROM order_manager a , user_orders b , customers c , food d WHERE a.order_status = '$Received' AND a.order_id = b.order_id 
+	AND a.user_id = c.customerID AND b.product = d.foodID OR a.order_status = '$Complete' AND a.order_id = b.order_id 
+	AND a.user_id = c.customerID AND b.product = d.foodID ORDER BY a.date_time_bought DESC";	
+		$result = mysqli_query($con,$product_query);
+		if(mysqli_num_rows($result) > 0){
 		while($row = mysqli_fetch_array($result)){
-			$order_status = $row['order_status'];
-			$order_id = $row['order_id'];
-			$product = $row['product'];
-			$product_price = $row['product_price']; 	
+			$foodName = $row['foodName'];
 			$quantity = $row['quantity'];
+			$total = $row['total'];
+			$total_amount = $total + 50;
 			$payment_option = $row['payment_option'];
 			$date_time_bought = $row['date_time_bought'];
-			$newDate = date('F d, Y || h:i:A',strtotime($date_time_bought));
-			$n = 1;
+			$newDate = date('F d, Y',strtotime($date_time_bought));
 			$n++;
 			echo "
 			<div class='card mt-3'>
-			<div class='card-body text-start'>
-					<div class='row'>
-						<div class='col-6'>
-							<h6 class='card-title text-dark'>$n.</h6>
-						</div>
-					</div>
-					<h6 class='card-title'>Price: ₱$product_price.00</h6>
-					<h6 class='card-title text-secondary'>Quantity: X$quantity</h6>
-					<h6 class='card-title text-secondary my-2'>Product: $product</h6>
+			<div class='card-body text-start border-2 shadow round'>
+					<h6 class='card-title text-secondary'>Order: x$quantity of $foodName</h6>
+					<h6 class='card-title text-secondary '>Total Amount: ₱$total_amount.00</h6>
 					<h6 class='card-title text-secondary '>Payment Option: $payment_option</h6>
 					<h6 class='card-title text-secondary'>Date Bought By: $newDate</h6>
 				</div>
@@ -528,7 +378,7 @@ if(isset($_POST["purchaseHistory"])){
 			<div class='col-md-12 py-3 mt-5'><h5>NO PURCHASE HISTORY</h5></div>
 		</div>
 		<div class='row text-center'>
-			<div class='col-md-12 mb-5'><a class='btn btn-danger btn-sm' href='/TNAN/shop.php'>Go Order Now</a></div>
+			<div class='col-md-12 mb-5'><a style='background-color: #826F66 !important;' class='btn text-white btn-sm' href='/TNAN/shop.php'>Go Order Now</a></div>
 		</div>
 		";
 	}
@@ -536,36 +386,75 @@ if(isset($_POST["purchaseHistory"])){
 
 // FUNCTION FETCH PENDING PRODUCT FROM THE DATABASE
 if(isset($_POST["pendingID"])){
-		$Deliver = 'Deliver';
-		$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.order_status, b.order_id, b.product, b.product_price, b.quantity, b.total, b.date_time_bought, c.customerID, c.customerName FROM order_manager a , user_orders b , customers c WHERE a.order_status = '$Deliver' AND a.order_id = b.order_id AND a.user_id = c.customerID AND a.user_id = '$_SESSION[uid]'";
+		$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.order_status, b.order_id, b.product, b.quantity, b.total, b.date_time_bought, c.customerID, c.customerName , c.customerContact, c.customerAddress, d.foodID , d.foodName, d.foodDescription 
+		FROM order_manager a , user_orders b , customers c , food d WHERE a.order_status != 'Complete' AND a.order_status != 'Received' AND a.order_status != 'Cancel' AND a.order_id = b.order_id AND a.user_id = c.customerID AND b.product = d.foodID";
 		$run_query = mysqli_query($con,$product_query);
 		if(mysqli_num_rows($run_query) > 0){
 			while($row = mysqli_fetch_array($run_query)){	
 				$order_id   = $row['order_id'];
 				$customerName = $row['customerName'];
+				$order_status = $row['order_status'];
 				$payment_option = $row['payment_option'];
-				$product = $row['product'];
+				$foodName = $row['foodName'];
 				$quantity = $row['quantity'];
 				$total_amount = $row['total_amount'];
+				$grandtotal = $total_amount + 50;
 				$date_time_bought = $row['date_time_bought'];
-				$new_date = date('F d, Y | h:i A',strtotime($date_time_bought));
-				echo "
-				<div class='col-4 mb-4'>
-					<div class='card'>
-						<div class='card-header bg-white'>
-							<p class='card-text'style='text-transform:Uppercase; font-size:14px;'>$new_date</p>
+				if($row['order_status'] == 'To Deliver'){
+					echo "
+						<div class='col-4 mb-4'>
+							<div class='card'>
+								<div class='card-header text-center' style='background-color:#826F66;'>
+									<p class='card-text text-white'>ORDERED DETAILS</p>
+								</div>
+								<div class='card-body'>
+									<h5 style='font-size:16px;' class='card-title fw-bold' style='text-transform:Uppercase;'>$order_status</h5>
+									<p style='font-size:15px;' class='card-text'>ORDER: x$quantity of $foodName </p>
+									<p style='font-size:15px;' class='card-text'>Total: ₱$total_amount.00 + Delivery fee: ₱50.00</p>
+									<p style='font-size:15px;' class='card-text'>Total Amount: ₱$grandtotal.00</p>
+									<p style='font-size:15px;' class='card-text text-secodary' style='text-transform:Uppercase;'>$payment_option</p>
+								</div>
+									<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=received('$order_id') class='btn btn-sm text-white py-2 mt-3'>RECEIVE ORDER </button>
+							</div>
 						</div>
-						<div class='card-body'>
-							<h5 style='font-size:16px;' class='card-title fw-bold' style='text-transform:Uppercase;'><i class='fas fa-truck'></i> TO DELIVER</h5>
-							<p style='font-size:15px;' class='card-text'>QUANTITY: X$quantity</p>
-							<p style='font-size:15px;' class='card-text'>PRODUCT: $product</p>
-							<p style='font-size:15px;' class='card-text'>TOTAL: ₱$total_amount.00</p>
-							<p style='font-size:15px;' class='card-text text-secodary' style='text-transform:Uppercase;'>$payment_option</p>
+						";
+				}else if($row['order_status'] == 'Order'){
+					echo "
+						<div class='col-4 mb-4'>
+							<div class='card'>
+								<div class='card-header text-center' style='background-color:#826F66;'>
+									<p class='card-text text-white'>ORDERED DETAILS</p>
+								</div>
+								<div class='card-body'>
+									<h5 style='font-size:16px;' class='card-title fw-bold' style='text-transform:Uppercase;'>$order_status</h5>
+									<p style='font-size:15px;' class='card-text'>ORDER: x$quantity of $foodName </p>
+									<p style='font-size:15px;' class='card-text'>Total: ₱$total_amount.00 + Delivery fee: ₱50.00</p>
+									<p style='font-size:15px;' class='card-text'>Total Amount: ₱$grandtotal.00</p>
+									<p style='font-size:15px;' class='card-text text-secodary' style='text-transform:Uppercase;'>$payment_option</p>
+								</div>
+									<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=cancel('$order_id') class='btn btn-sm text-white py-2 mt-3'>CANCEL ORDER</button>
+							</div>
 						</div>
-							<button style='border:none; font-size:15px;' onclick=received('$order_id') class='btn btn-sm btn-danger p-2'>RECEIVE ORDER </button>
-					</div>
-				</div>
-				";
+						";
+				}else{
+					echo "
+						<div class='col-4 mb-4'>
+							<div class='card'>
+								<div class='card-header text-center' style='background-color:#826F66;'>
+									<p class='card-text text-white'>ORDERED DETAILS</p>
+								</div>
+								<div class='card-body'>
+									<h5 style='font-size:16px;' class='card-title fw-bold' style='text-transform:Uppercase;'>$order_status</h5>
+									<p style='font-size:15px;' class='card-text'>ORDER: x$quantity of $foodName </p>
+									<p style='font-size:15px;' class='card-text'>Total: ₱$total_amount.00 + Delivery fee: ₱50.00</p>
+									<p style='font-size:15px;' class='card-text'>Total Amount: ₱$grandtotal.00</p>
+									<p style='font-size:15px;' class='card-text text-secodary' style='text-transform:Uppercase;'>$payment_option</p>
+								</div>
+									<button disabled style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=received('$order_id') class='btn btn-sm text-white py-2 mt-3'>RECEIVE ORDER </button>
+							</div>
+						</div>
+						";
+				}
 			}
 		}else{
 			echo'
@@ -582,7 +471,22 @@ if(isset($_POST["pendingID"])){
 if(isset($_POST["received"])) {
 	$received = $_POST["received"];
 	$success = "Received";
-	$sql = "UPDATE `order_manager` SET `order_status` = '$success' WHERE `order_id` = '$received'";
+	$sql = "UPDATE `order_manager` SET `date_time_bought` = CURRENT_TIMESTAMP, `order_status` = '$success' WHERE `order_id` = '$received'";
+	$result= mysqli_query($con,$sql);
+	if($result){
+		echo 1;
+		exit();
+	}else{
+		echo 0;
+		exit();
+	}
+}
+
+// FUNCTION FOR RECEIVE ORDERS
+if(isset($_POST["cancel"])) {
+	$cancel = $_POST["cancel"];
+	$Cancel = "Cancel";
+	$sql = "UPDATE `order_manager` SET `order_status` = '$Cancel' WHERE `order_id` = '$cancel'";
 	$result= mysqli_query($con,$sql);
 	if($result){
 		echo 1;

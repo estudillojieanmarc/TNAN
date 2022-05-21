@@ -64,32 +64,48 @@
                 <h4 class="mb-3 pt-5"><i class="fab fa-paypal"></i> TRANSACTION DETAILS</h4>
                 <ul class="nav nav-tabs mb-4">
                         <li class="nav-item">
-                            <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/transaction.php">ORDER</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/transaction.php">ORDER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active " href="/TNAN/admin/preparing.php">&nbsp;&nbsp;PREPARING&nbsp;&nbsp;</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/preparing.php">PREPARING</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/deliver.php">TO DELIVER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/received.php">RECEIVED</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/received.php">RECEIVED</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/Completed.php">COMPLETED</a>
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/Completed.php">COMPLETED</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/Cancel.php">CANCEL</a>
+                            <a class="nav-link active"  href="/TNAN/admin/Cancel.php">&nbsp;&nbsp;CANCEL&nbsp;&nbsp;</a>
                         </li>
                 </ul>
-                    <div class="row" id="fetchPrepare"></div>
                     <div class="row">
-                        <div class="col-1 ms-auto">
-                            <div class="my-4"id="pageno"></div>
-                        </div>
+                            <div class="row mb-3">
+                                <div class="col-3 ms-auto">
+                                    <form class="d-flex">
+                                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit">Search</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <table class="table table-bordered align-middle text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Number</th>
+                                        <th>PRODUCT</th>
+                                        <th>CUSTOMER</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="fetchCancel">
+                                    
+                                </tbody>
+                            </table>
                     </div>
-        <!-- END OF TABLE UI -->
-
+            </div>
     <!-- MAIN CONTENT END --> 
 
     <!-- JAVASCRIPT -->
@@ -104,8 +120,7 @@
     <!-- DETABLES BEHAVIOR -->
         <script>
                 $(document).ready( function () {
-                    order();
-                    page();
+                    cancel();
                     $('#customerTable').DataTable({
                         ordering:false,
                         searching:true,
@@ -119,86 +134,56 @@
         </script>
     <!-- END DETABLES BEHAVIOR -->
 
-    <!--FUNCTION FOR FETCHING PREPARING FOOD -->
+    <!--FUNCTION FOR FETCHING COMPLETED -->
         <script>
-            function order(){
+            function cancel(){
                 $.ajax({
                     url	:	"/TNAN/admin/fetchdata/getTransaction.php",
                     method:	"POST",
-                    data	:	{getPrepare:1},
+                    data	:	{getCancel:1},
                     success	:	function(data){
-                        $("#fetchPrepare").html(data);
+                        $("#fetchCancel").html(data);
                     }
                 })
             }
         </script>
-    <!--FUNCTION FOR FETCHING PREPARING FOOD -->
+    <!--FUNCTION FOR FETCHING COMPLETED -->
 
-    <!--FUNCTION FOR CREATING PAGINATION -->
-        <script>
-            function page(){
-                $.ajax({
-                    url	:	"/TNAN/admin/fetchdata/getTransaction.php",
-                    method	:	"POST",
-                    data	:	{page:1},
-                    success	:	function(data){
-                        $("#pageno").html(data);
-                    }
-                })
-            }
-        </script>
-    <!--END FUNCTION FOR CREATING PAGINATION -->
-
-    <!-- FUNCTION FOR PAGINATION -->
-        <script>
-            $("body").delegate("#page","click",function(){
-                var pn = $(this).attr("page");
-                $.ajax({
-                    url	:	"/TNAN/admin/fetchdata/getTransaction.php",
-                    method	:	"POST",
-                    data	:	{getOrder:1,setPage:1,pageNumber:pn},
-                    success	:	function(data){
-                        $("#fetchOrder").html(data);
-                    }
-                })
-            });
-        </script>
-    <!-- END FUNCTION FOR PAGINATION -->
-    
-    <!-- FUNCTION FOR DELIVER A FOOD -->
-        <script>
-            function deliver(id){
+    <!--FUNCTION FOR DELETING CANCEL -->
+      <script>
+            function deleteCancel(id){
                 Swal.fire({
-                title: 'ARE YOU SURE?',
-                text: "Deliver this product now?",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Deliver now!'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                    url: '/TNAN/admin/php/transact.php',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {deliver: id},
-                });
-                Swal.fire({
-                    title: 'Rider out!',
-                    text: "Order was deliver now",
+                    title: 'Are you sure?',
+                    text: "Do you want to delete this?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                        url: '/TNAN/admin/php/delete.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {deleteCancel: id},
+                    });
+                    Swal.fire({
+                    title: 'Delete Succesfully',
+                    text:  "Cancel report was delete successfully",
                     icon: 'success',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Continue'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    order();
-                }
-                });
-                }
-                });
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        cancel();
+                    }
+                    })
+                    }
+                })
             }
         </script>
-    <!-- END FUNCTION FOR DELIVER A FOOD -->
+    <!--FUNCTION FOR DELETING CANCEL -->
+
 </body>
 </html>

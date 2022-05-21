@@ -272,6 +272,44 @@
         </script>
     <!-- FUNCTION FOR FETCH CUSTOMER DATA FOR TABLE-->
 
+    <!--FUNCTION FOR DELETING CANCEL -->
+        <script>
+            function deleteCustomer(id){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to delete this?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                        url: '/TNAN/admin/php/delete.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {deleteCustomer: id},
+                    });
+                    Swal.fire({
+                    title: 'Delete Succesfully',
+                    text:  "Users Account was delete successfully",
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Continue'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        getCustomer();
+                    }
+                    })
+                    }
+                })
+            }
+        </script>
+    <!--FUNCTION FOR DELETING CANCEL -->
+
+
+
 </body>
 </html>
 

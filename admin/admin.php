@@ -22,9 +22,9 @@
     <!--PHP FUNCTION  -->
          <?php session_start();
             include 'config.php';
-            // $sql1 = "SELECT `status` FROM `complaint` WHERE `status` = 0 ORDER BY `complaint_id`";
-            // $result1 = mysqli_query($con, $sql1);
-            // $complaint = mysqli_num_rows($result1);
+            $sql1 = "SELECT `foodID` FROM `food` WHERE `foodStatus` = 0";
+            $result1 = mysqli_query($con, $sql1);
+            $product = mysqli_num_rows($result1);
 
             $sql2 = "SELECT `customerID` FROM `customers` ORDER BY `customerID`";
             $result2 = mysqli_query($con, $sql2);
@@ -141,7 +141,7 @@
                                         </div>   
                                         <div class="col-7">
                                             <h5 class="card-title text-light">TOTAL PRODUCTS</h5>
-                                            <p class="card-text fs-2 px-5 text-light">1</p>
+                                            <p class="card-text fs-2 px-4 text-light"><?php echo $product ?></p>
                                         </div>   
                                 </div>   
                             </div>

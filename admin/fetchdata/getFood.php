@@ -56,7 +56,7 @@ if(isset($_POST["getFoodNA"])){
                 <td width='20%' style='font-size:16px;'>
                     <button class='btn btn-sm btn-success' type='button' onclick='updateStatus($foodID)'>ACTIVE</button>
                     <button class='btn btn-sm btn-secondary' type='button' onclick='update($foodID)'>UPDATE</button>
-                    <button class='btn btn-sm btn-danger' type='button' onclick='delete($foodID)'>DELETE</button>
+                    <button class='btn btn-sm btn-danger' type='button' onclick='deleteProduct($foodID)'>DELETE</button>
                 </td> 
             </tr>
 			";

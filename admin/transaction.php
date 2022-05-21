@@ -9,7 +9,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="/TNAN/admin/css/datables.css" rel="stylesheet">
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
-        <link href="/TNAN/admin/css/stylesheet.css" rel="stylesheet">
+        <link href="/TNAN/admin/css/admin.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
         <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
         <title>Zsaliah's Closet</title>
@@ -78,13 +78,16 @@
                         <li class="nav-item">
                             <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/Completed.php">COMPLETED</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/Cancel.php">CANCEL</a>
+                        </li>
                 </ul>
-                    <div class="row" id="fetchOrder"></div>
-                    <div class="row">
-                        <div class="col-1 ms-auto">
-                            <div class="my-4"id="pageno"></div>
-                        </div>
+                <div class="row" id="fetchOrder"></div>
+                <div class="row">
+                    <div class="col-1 ms-auto">
+                        <div class="my-4"id="pageno"></div>
                     </div>
+                </div>
         <!-- END OF TABLE UI -->
 
     <!-- MAIN CONTENT END --> 
@@ -167,12 +170,12 @@
             function marked(id){
                 Swal.fire({
                 title: 'ARE YOU SURE?',
-                text: "Do you want to prepare this order?",
+                text: "Do you want to PREPARE this order?",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Mark it'
+                confirmButtonText: 'Yes, Continue'
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({

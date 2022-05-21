@@ -3,7 +3,7 @@
 include ('config.php');
 if(isset($_POST['getDetails'])){
 	$Complete = 'Complete';
-	$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.order_status, b.order_id, b.product, b.product_price, b.quantity, b.total, b.date_time_bought, c.customerID, c.customerName FROM order_manager a , user_orders b , customers c WHERE a.order_status = '$Complete' AND a.order_id = b.order_id AND a.user_id = c.customerID LIMIT 6";
+	$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.order_status, b.order_id, b.product, b.quantity, b.total, b.date_time_bought, c.customerID, c.customerName FROM order_manager a , user_orders b , customers c WHERE a.order_status = '$Complete' AND a.order_id = b.order_id AND a.user_id = c.customerID LIMIT 6";
 	$run_query = mysqli_query($con,$product_query);
 	if(mysqli_num_rows($run_query) > 0){
 		while($row = mysqli_fetch_array($run_query)){	

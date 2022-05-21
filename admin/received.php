@@ -78,6 +78,9 @@
                         <li class="nav-item">
                             <a class="nav-link"   style="color:#AD8B73;"href="/TNAN/admin/Completed.php">COMPLETED</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/Cancel.php">CANCEL</a>
+                        </li>
                 </ul>
                     <div class="row" id="fetchReceived"></div>
                     <div class="row">
@@ -163,7 +166,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, mark it'
+                confirmButtonText: 'Yes, continue'
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -180,7 +183,7 @@
                     confirmButtonText: 'Continue'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    order();
+                    fetchOrder();
                 }
                 });
                 }

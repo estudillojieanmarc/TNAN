@@ -78,6 +78,9 @@
                         <li class="nav-item">
                             <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/Completed.php">COMPLETED</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  style="color:#AD8B73;" href="/TNAN/admin/Cancel.php">CANCEL</a>
+                        </li>
                 </ul>
                     <div class="row" id="fetchDeliver"></div>
                     <div class="row">

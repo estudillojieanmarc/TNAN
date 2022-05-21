@@ -1,9 +1,9 @@
 <?php
 require_once('config.php');
-// FUNCTION FOR REMOVE ANNOUNCEMENT
-if(isset($_POST['removeAnnouncementID'])){
-	$removeAnnouncementID = $_POST['removeAnnouncementID'];
-	$sql = "DELETE FROM `announcement` WHERE `announcement_id` = '$removeAnnouncementID'";
+// FUNCTION FOR REMOVE CANCEL REPORT
+if(isset($_POST['deleteCancel'])){
+	$deleteCancel = $_POST['deleteCancel'];
+	$sql = "DELETE FROM `order_manager` WHERE `order_id` = '$deleteCancel'";
 	$result = mysqli_query($con, $sql);
 	if($result){
 		echo 1;
@@ -14,9 +14,10 @@ if(isset($_POST['removeAnnouncementID'])){
 	}
 }
 
-if(isset($_POST['deleteComplaint'])){
-	$deleteComplaint = $_POST['deleteComplaint'];
-	$sql = "DELETE FROM `complaint` WHERE `complaint_id` = '$deleteComplaint'";
+// FUNCTION FOR REMOVE COMPLETE REPORT
+if(isset($_POST['deleteComplete'])){
+	$deleteComplete = $_POST['deleteComplete'];
+	$sql = "DELETE FROM `order_manager` WHERE `order_id` = '$deleteComplete'";
 	$result = mysqli_query($con, $sql);
 	if($result){
 		echo 1;
@@ -27,23 +28,42 @@ if(isset($_POST['deleteComplaint'])){
 	}
 }
 
-// FUNCTION FOR REMOVE ANNOUNCEMENT
-if(isset($_POST['removeResponse'])){
-    $sql = "SELECT * FROM `inbox`";
-	$result = mysqli_query($con,$sql) or die($con->error);
+
+// FUNCTION FOR REMOVE DELETE ACCOUNT
+if(isset($_POST['deleteCustomer'])){
+	$deleteCustomer = $_POST['deleteCustomer'];
+	$sql = "DELETE FROM `customers` WHERE `customerID` = '$deleteCustomer'";
+	$result = mysqli_query($con, $sql);
+	if($result){
+		echo 1;
+		exit;
+	}else{
+		echo 0;
+		exit;
+	}
+}
+
+
+// FUNCTION FOR REMOVE DELETE PRODUCT
+if(isset($_POST['deleteProduct'])){
+	$deleteProduct = $_POST['deleteProduct'];
+	$oldImage = "SELECT `foodImage` FROM `food` WHERE `foodID` = '$deleteProduct'";
+	$result = mysqli_query($con, $oldImage);
 	if(mysqli_num_rows($result)>0){
-	while($row = mysqli_fetch_array($result)){
-        // CURRENT DATE FROM MANILA
-		date_default_timezone_set("asia/manila");
-		$currentdate = date("Y-m-d H:i:s");
-		// VALID UNTIL / DATE EXPIRATION
-		$expire = date('Y-m-d H:i:s', strtotime($row['date_time']. '+1 day'));
-        if($currentdate >= $expire){
-		   $sql2 = "UPDATE `inbox` SET `is_deleted` = 1";
-           $result2 = mysqli_query($con,$sql2) or die($con->error);
-           if($result2){}
-        }
-    }
-	}	
+		{
+			$foodImage = mysqli_fetch_array($result);
+			unlink("C:/xampp/htdocs/TNAN/admin/assets/foodPhoto/".$foodImage[0]);
+			$sql = "DELETE FROM `food` WHERE `foodID` = '$deleteProduct'";
+			$result = mysqli_query($con, $sql);
+			if($result){
+				echo 1;
+				exit;
+			}else{
+				echo 0;
+				exit;
+			}
+		}
+	}
 }
+
 ?>

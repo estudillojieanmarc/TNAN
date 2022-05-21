@@ -34,7 +34,7 @@
     padding: 12px 0;
     font-weight: bold;
     letter-spacing: 2px;
-    transition: 0.3s;
+    transition: 1s;
   }
   .sidenav a:hover {
     color: #faf7f2;  

@@ -17,7 +17,7 @@
 	// MARK TO DELIVER FOOD
     if(isset($_POST["deliver"])) {
 		$deliver = $_POST["deliver"];
-		$Deliver = "Deliver";
+		$Deliver = "To Deliver";
 		$sql = "UPDATE `order_manager` SET `order_status` = '$Deliver' WHERE `order_id` = '$deliver'";
 		$result= mysqli_query($con,$sql);
 		if($result){
@@ -28,12 +28,11 @@
 			exit();
 		}
 	}
-
 	// MARK TO COMPLETE TRANSACTION
     if(isset($_POST["complete"])) {
 		$complete = $_POST["complete"];
 		$completed = "complete";
-		$sql = "UPDATE `order_manager` SET `date_time_bought` = now() , `order_status` = '$completed' WHERE `order_id` = '$complete'";
+		$sql = "UPDATE `order_manager` SET `date_time_bought` = now(), `order_status` = '$completed' WHERE `order_id` = '$complete'";
 		$result= mysqli_query($con,$sql);
 		if($result){
 			echo 1;

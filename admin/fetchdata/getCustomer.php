@@ -54,7 +54,7 @@ if(isset($_POST["getCustomerNA"])){
                 <td width=20%>
                     <button class='btn btn-sm btn-success' type='button' onclick='updateStatus($customerID)'>ACTIVE</button>
                     <button class='btn btn-sm btn-secondary' type='button' onclick='update($customerID)'>UPDATE</button>
-                    <button class='btn btn-sm btn-danger' type='button' onclick='Delete($customerID)'>DELETE</button>
+                    <button class='btn btn-sm btn-danger' type='button' onclick='deleteCustomer($customerID)'>DELETE</button>
                 <td>
             </tr>
 			";

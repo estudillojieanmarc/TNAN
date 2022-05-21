@@ -86,8 +86,8 @@
     $("#search_btn").click(function(e){
         e.preventDefault();
         var keyword = $("#search").val();
-        $("#get_product").html("<div class='alert bg-light text-center' style='color:#AD8B73;' role='alert'><h5>Loading...</h5></div>");
         if(keyword != ""){
+            $("#get_product").html("<div class='alert bg-light text-center' style='color:#AD8B73;' role='alert'><h5>Loading...</h5></div>");
             $.ajax({
             url		:	"/TNAN/includes/php/function.php",
             method	:	"POST",
@@ -151,7 +151,6 @@
         })
     } 
 
-
 // FUNCTION FOR ADDING QTY IN PENDING BADGE
    function count_pending(){
     $.ajax({
@@ -162,7 +161,7 @@
             $("#pending_qty").html(data);
         }
     })
-    }
+   }
 
 // FUNCTION FOR GETTING CART ITEM FROM DB 
     function getCartItem(){
@@ -179,8 +178,7 @@
     }
 
 // ADDING PRODUCT INTO CART
-    $("body").delegate("#addCart","click",function(event){
-        event.preventDefault();
+    $("body").delegate("#addCart","click",function(){
         var pid = $(this).attr("pid");
         $.ajax({
             url	:	"/TNAN/includes/php/function.php",
@@ -207,7 +205,7 @@
                         icon: 'success',
                         title: 'ADDED TO CART',
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 1000
                     })
                 }
             }
@@ -334,12 +332,17 @@
         var price = document.getElementsByClassName('price');
         var quantity = document.getElementsByClassName('quantity');
         var total = document.getElementsByClassName('total');
+        var totalH = document.getElementsByClassName('totalH');
         var total_amount = document.getElementById('total_amount');
         result = 0;
         for(i=0;i<price.length;i++){
             total[i].textContent=(price[i].value)*(quantity[i].value);
             result = result+(price[i].value)*(quantity[i].value);
-            total_amount.textContent = result;
+            total_amount.textContent = result;       
+        }
+
+        for(i=0;i<price.length;i++){
+            totalH[i].value=(price[i].value)*(quantity[i].value);
         }
     } 
 
@@ -454,162 +457,6 @@
         })
     });
 
-// FUNCTION FOR FETCH DATA FOR COMPLAINT MODAL
-    function complaint(id){
-        $('#complaintModal').modal('show')
-        $.ajax({
-            url: '/TNAN/admin/fetchdata/complaint.php/',
-            type: 'POST',
-            dataType: 'json',
-            data: {complaintID: id},
-        })
-        .done(function(response) {
-            $('#user_id').val(response[0].customerID);
-            })
-    }
-
-//FUNCTION FOR SUBMIT COMPLAINT 
-    $('#complaintBtn').click(function(){
-    var currentForm = $('#complaintForm')[0];
-    var data = new FormData(currentForm);
-    if($('#user_complaint').val()==''){
-            Swal.fire(
-            'Sorry Submit Failed',
-            'Please Input all missing fields',
-            'question'
-            )
-        }else{
-            $.ajax({
-                url: "/TNAN/includes/php/concern.php",
-                method: "POST",
-                dataType: "text",
-                data:data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success:function(response){
-                    if(response == 0){
-                        Swal.fire(
-                        'Complaint Submit Failed',
-                        'Sorry Your Concern has not send.',
-                        'error'
-                        )
-                    }else if(response == 1){
-                        Swal.fire({
-                        title: 'Submit Successfully',
-                        text: "Wait for the response to address your concern",
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Continue'
-                        }).then((result) => {
-                        if (result.isConfirmed) {
-                            $('#complaintForm')[0].reset();
-                        }
-                        })                               
-                    }
-                },
-                error:function(error){
-                console.log(error)
-                }
-            }) 
-            }
-    });
-
-// FUNCTION FOR FETCH INBOX MESSAGES
-    function inbox(){
-        $('#inboxModal').modal('show');
-        $.ajax({
-            url: '/TNAN/includes/php/function.php',
-            method: 'POST',
-            data: {inboxID: 1},
-            success : function(data) {
-                $("#inboxMessage").html(data);
-            }
-        })
-    }
-
-// FUNCTION FOR REMOVE MESSAGE
-    function removeMessage(id){
-        console.log(id);
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to delete this message?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Delete it'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                url: '/TNAN/includes/php/function.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {inboxMessage: id},
-            });
-            Swal.fire({
-                title: 'Message Deleted',
-                text: "Inbox message was delete successfully",
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Continue'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                inbox();
-                count_message();
-            }
-            });
-            }
-            });
-    }
-
-// FUNCTION FOR FETCH ANNOUNCEMENT
-    function announcement(){
-        $('#announcementModal').modal('show');
-        $.ajax({
-            url: '/TNAN/includes/php/function.php',
-            method: 'POST',
-            data: {announcementID: 1},
-            success : function(data) {
-                $("#announcement").html(data);
-            }
-        })
-    }
-
-// FUNCTION FOR REMOVE ANNOUNCEMENT
-    function removeAnnouncement(id){
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to delete this announcement?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Delete it'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                url: '/TNAN/includes/php/function.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {removeAnnouncementID: id},
-            });
-            Swal.fire({
-                title: 'Announcement Deleted',
-                text: "announcement was delete successfully",
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Continue'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                announcement();
-                count_announcement();
-            }
-            });
-            }
-            });
-    }
-
 // FUNCTION FOR FETCH CUSTOMER DETAILS
     function customerDetails(){
         $.ajax({
@@ -625,86 +472,76 @@
 
 // CHECHOUT 
     $("body").delegate("#checkoutBtn","click",function(){
-        var currentForm = $('#checkoutForm')[0];
-        var data = new FormData(currentForm);
-        data.append('total_amount',$('#total_amount').text());
-        data.append('total',$('.total').text());
-        data.append('foodDescription',$('.foodDescription').text());
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to checkout?",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, continue!'
-        }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: "/TNAN/includes/php/order.php",
-                method: "POST",
-                dataType: "text",
-                data:data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success:function(response){
-                    if(response == 0){
-                        Swal.fire(
-                        'Checkout Failed',
-                        'Sorry the product was not checkout yet.',
-                        'error'
-                        )
-                    }else if(response == 1){
-                        Swal.fire({
-                        title: 'Checkout Successfully',
-                        text: "Wait for the response to deliver your food",
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Continue'
-                        }).then((result) => {
-                        if (result.isConfirmed) {
-                            getCartItem();   
-                            count_item();
+        $(".stock").val()
+        $(".quantity").val()
+        if($(".quantity").val() > $(".stock").val()){
+            Swal.fire(
+                'Invalid Quantity',
+                'Sorry, The quantity cannot beyond the item stock.',
+                'error'
+            )
+        }else{
+            var currentForm = $('#checkoutForm')[0];
+            var data = new FormData(currentForm);
+            data.append('total_amount',$('#total_amount').text());
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to checkout?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, continue!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/TNAN/includes/php/order.php",
+                    method: "POST",
+                    dataType: "text",
+                    data:data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success:function(response){
+                        if(response == 0){
+                            Swal.fire(
+                            'Checkout Failed',
+                            'Sorry the product was not checkout yet.',
+                            'error'
+                            )
+                        }else if(response == 1){
+                            Swal.fire({
+                            title: 'Checkout Successfully',
+                            text: "Wait for the response to deliver your food",
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Continue'
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                                getCartItem();   
+                                count_item();
+                                product();
+                                count_pending();
+                            }
+                            })                               
+                        }else if(response == 2){
+                            Swal.fire(
+                            'Checkout Failed',
+                            'Sorry, Please Complete your details account',
+                            'error'
+                            )
                         }
-                        })                               
+                        console.log(response)
+                    },
+                    error:function(error){
+                    console.log(error)
                     }
-                },
-                error:function(error){
-                console.log(error)
-                }
-            }) 
+                }) 
+            }
+            })
         }
-        })
     });
 
-// FUNCTION FOR REMOVE ANNOUNCEMENT
-    function removeAnnouncement(){
-        $.ajax({
-        url: '/TNAN/includes/php/function.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {removeAnnouncementID: 1},
-        success : function(response) {
-            if(response == 1){
-                Swal.fire({
-                title: 'Announcement Deleted',
-                text: 'We inform you that announcement was remove',
-                icon: 'info',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continue'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location = "/TNAN/shop.php";
-                }
-                })
-            }    
-        }
-    });
-        
-    }
-    
 // FUNCTION FOR FETCH PURCHASE HISTORY
     function purchaseHistory(id){
         $('#purchaseHistoryModal').modal('show');
@@ -740,7 +577,7 @@
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes i Receieved'
+        confirmButtonText: 'Yes i received'
         }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -751,7 +588,41 @@
         });
         Swal.fire({
             title: 'THANK YOU FOR TRANSACTING US',
-            text: "ORDER • EAT • SATISFY",
+            text: "MEET UP • PICK UP • DELIVERY",
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continue'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            pending();
+            count_pending();
+        }
+        });
+        }
+        });
+    }
+
+// FUNCTION FOR RECEIVING ORDERS
+    function cancel(id){
+        Swal.fire({
+        title: 'Cancel the orders?',
+        text: "Do You want to cancel the orders",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Continue'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+            url: '/TNAN/includes/php/function.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {cancel: id},
+        });
+        Swal.fire({
+            title: 'THANK YOU FOR TRANSACTING US',
+            text: "MEET UP • PICK UP • DELIVERY",
             icon: 'success',
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Continue'

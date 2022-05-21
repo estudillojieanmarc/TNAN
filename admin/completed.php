@@ -78,6 +78,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="/TNAN/admin/Completed.php">&nbsp;&nbsp;COMPLETED&nbsp;&nbsp;</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:#AD8B73;"  href="http://localhost/TNAN/admin/Cancel.php">CANCEL</a>
+                        </li>
                 </ul>
                     <div class="row">
                             <div class="row mb-3">
@@ -96,6 +99,7 @@
                                         <th>TOTAL AMOUNT PAY</th>
                                         <th>DATE TIME BOUGHT</th>
                                         <th>PAYMENT OPTION</th>
+                                        <th>ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody id="fetchCompleted">
@@ -121,7 +125,7 @@
     <!-- DETABLES BEHAVIOR -->
         <script>
                 $(document).ready( function () {
-                    order();
+                    complete();
                     $('#customerTable').DataTable({
                         ordering:false,
                         searching:true,
@@ -137,7 +141,7 @@
 
     <!--FUNCTION FOR FETCHING COMPLETED -->
         <script>
-            function order(){
+            function complete(){
                 $.ajax({
                     url	:	"/TNAN/admin/fetchdata/getTransaction.php",
                     method:	"POST",
@@ -149,6 +153,43 @@
             }
         </script>
     <!--FUNCTION FOR FETCHING COMPLETED -->
+
+    <!--FUNCTION FOR DELETING CANCEL -->
+        <script>
+            function deleteComplete(id){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to delete this?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                        url: '/TNAN/admin/php/delete.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {deleteComplete: id},
+                    });
+                    Swal.fire({
+                    title: 'Delete Succesfully',
+                    text:  "Complete report was delete successfully",
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Continue'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        complete();
+                    }
+                    })
+                    }
+                })
+            }
+        </script>
+    <!--FUNCTION FOR DELETING CANCEL -->
+
 
 </body>
 </html>
