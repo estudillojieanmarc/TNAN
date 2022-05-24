@@ -7,15 +7,10 @@
 
     require_once('connection.php');
     $updateImage = $_FILES["updateImage"]["name"];
-    $updateID = $_POST['updateID'];
     $updateFname = $_POST["updateFname"];
     $updateAddress = $_POST["updateAddress"];
     $updateContact = $_POST["updateContact"];
-    $updateUsername = $_POST["updateUsername"];
     $updateEmail = $_POST["updateEmail"];
-    $updatePassword = $_POST["updatePassword"];
-
-    $customerPassword = md5($updatePassword);
 
     if(!empty($_FILES['updateImage']["name"])){
         if(isset($_POST["updateBtn"])){
@@ -42,7 +37,7 @@
                     $password = $updatePassword;
                     $encode = base64_encode($password);
                     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                    $sql = "UPDATE `customers` SET `customerImage` = '$updateImage', `customerName` = '$updateFname', `customerContact` = '$updateContact', `customerAddress` = '$updateAddress', `customerEmail` = '$updateEmail', `customerUsername` = '$updateUsername', `customerPassword` = '$$customerPassword' WHERE `customerID` = '$updateID'";
+                    $sql = "UPDATE `customers` SET `customerImage` = '$updateImage', `customerName` = '$updateFname', `customerContact` = '$updateContact', `customerAddress` = '$updateAddress', `customerEmail` = '$updateEmail' WHERE `customerID` = '$_SESSION[uid]'";
                     $result = mysqli_query($con, $sql);
                     if($result){
                         move_uploaded_file($_FILES["updateImage"]["tmp_name"],$target_file);
@@ -54,7 +49,7 @@
                 }
             }
         }else{    
-            $sql = "UPDATE `customers` SET `customerName` = '$updateFname', `customerContact` = '$updateContact' , `customerAddress` = '$updateAddress', `customerEmail` = '$updateEmail', `customerUsername` = '$updateUsername', `customerPassword` = '$customerPassword' WHERE `customerID` = '$updateID' ";
+            $sql = "UPDATE `customers` SET `customerName` = '$updateFname', `customerContact` = '$updateContact' , `customerAddress` = '$updateAddress', `customerEmail` = '$updateEmail' WHERE `customerID` = '$_SESSION[uid]'";
             $result = mysqli_query($con, $sql);
             if($result){
                 echo 1;

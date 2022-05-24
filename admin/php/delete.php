@@ -52,7 +52,7 @@ if(isset($_POST['deleteProduct'])){
 	if(mysqli_num_rows($result)>0){
 		{
 			$foodImage = mysqli_fetch_array($result);
-			unlink("C:/xampp/htdocs/TNAN/admin/assets/foodPhoto/".$foodImage[0]);
+			// unlink("C:/xampp/htdocs/TNAN/admin/assets/foodPhoto/".$foodImage[0]);
 			$sql = "DELETE FROM `food` WHERE `foodID` = '$deleteProduct'";
 			$result = mysqli_query($con, $sql);
 			if($result){

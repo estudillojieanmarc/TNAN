@@ -635,3 +635,89 @@
         }
         });
     }
+
+// FUNCTION FOR FETCH DATA FOR UPDATE MODAL
+function updateAccount(id){
+    $('#updateAccountModal').modal('show')
+    $.ajax({
+        url: '/TNAN/admin/fetchdata/updateCustomer.php/',
+        type: 'POST',
+        dataType: 'json',
+        data: {customerID: id},
+    })
+    .done(function(response) {
+        $('#updateID').val(response[0].customerID)
+        $('#accountUsername').val(response[0].customerUsername)
+        $('#accountPassword').val(response[0].customerPassword)
+        })
+}
+   
+
+// FUNCTION FOR PASSWORD ENABLE
+    function seePassword() {
+        var x = document.getElementById("accountPassword");
+        if (x.type==='password'){
+            x.type ="text";
+            y.style.display="block";
+            z.style.display="none";
+        }else{
+            x.type="password";
+            y.style.display="none"
+            z.style.display="block";
+        }
+    }
+
+
+// FUNCTION FOR UPDATE ACCOUNT
+$('#updateButton').click(function(e){
+    e.preventDefault();
+    Swal.fire({
+    title: 'Are you sure?',
+    text: "Do you want to update your account?",
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, update it!'
+    }).then((result) => {
+    if (result.isConfirmed) {
+        var currentForm = $('#updateAccountForm')[0];
+        var data = new FormData(currentForm);
+        $.ajax({
+            url: "/TNAN/includes/php/updateAccount.php",
+            method: "POST",
+            dataType: "text",
+            data:data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success:function(response){
+                if(response == 0){
+                    Swal.fire(
+                    'Update Failed',
+                    'Sorry, Please try again',
+                    'error'
+                    )
+                }else if(response == 1){
+                    Swal.fire({
+                        title: 'Update Success',
+                        text: "Your Account Has Been Updated",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#updateAccountModal').modal('hide')
+                            customerDetails();
+                            updateAccount();
+                            identification();
+                        }
+                      })
+                }
+            },
+        error:function(error){console.log(error)}  }); 
+        }
+    })
+});

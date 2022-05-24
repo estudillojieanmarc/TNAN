@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FASHION TEEN TRENDS</title>
+    <title>Zsaliah's Closet</title>
     <link rel="stylesheet" href="/TNAN/includes/css/shopsss.css">
     <link rel="stylesheet" href="/TNAN/includes/css/fontAwesome.css">
     <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
@@ -37,9 +38,6 @@
                             <input id="search" class="form-control round-pill" style="width:15rem;" type="search" placeholder="Search Product Here.">
                             <button id="search_btn" class="btn text-white" style="background-color: #826F66 !important" type="submit">Search</button>    
                         </form>                 
-                        <!-- <li class="nav-item px-1 pt-1">
-                            <a type="button" class="btn text-white btn-sm" style="background-color: #AD8B73 !important;" href="http://localhost/TNAN/shop.php"> <i class="fas fa-redo px-1"></i> Refresh</a>
-                        </li> -->
                         <li class="nav-item px-1">
                         <button type="button" class="nav-link btn text-white" style="font-size:14px;" data-bs-toggle="modal" data-bs-target="#showCart"><i class="fas fa-shopping-cart" style="font-size:15px;"></i> Cart <span class="badge" id="cart_qty"> 0</span></button>
                         </li>
@@ -51,8 +49,9 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end bg-light">
                         <li><a class="dropdown-item text-dark" href="#"><i class="fas fa-cog px-1"></i> Settings</a></li>
-                            <li><button type="button" onclick="updateProfile(<?php echo $_SESSION['uid'];?>)" class="dropdown-item text-dark" href="#"><i class="fas fa-user px-1"></i> Manage Profile</button></li>
-                            <li><button type="button" onclick="purchaseHistory(<?php echo $_SESSION['uid'];?>)" class="dropdown-item text-dark" href="#"><i class="fas fa-history px-1"></i> Purchase History</button></li>
+                            <li><button type="button" onclick="updateProfile(<?php echo $_SESSION['uid'];?>)" class="dropdown-item text-dark"><i class="fas fa-user px-1"></i> Manage Profile</button></li>
+                            <li><button type="button" onclick="updateAccount(<?php echo $_SESSION['uid'];?>)" class="dropdown-item text-dark"><i class="fa-solid fa-lock px-1"></i> Credentials</button></li>
+                            <li><button type="button" onclick="purchaseHistory(<?php echo $_SESSION['uid'];?>)" class="dropdown-item text-dark"><i class="fas fa-history px-1"></i> Purchase History</button></li>
                             <li><hr class="dropdown-divider text-dark"></li>
                             <li><button class="dropdown-item text-dark" id="logout"><i class="fas fa-door-open px-1"></i> Logout</button></li>
                         </ul>
@@ -144,7 +143,6 @@
                             </div>
                             <div class="container">
                             <form id="updateForm">
-                                    <input type="hidden" name="updateID" id="updateID">
                                     <div class="row mb-2">
                                         <div class="col-7" style="align-items:center;">
                                             <div class="pt-4 mt-5">
@@ -156,44 +154,32 @@
                                              <img alt='image of the users' class="img-thumbnail" style="height:140px; width:180px; " src="" id="updateImage">
                                         </div>
                                     </div>
-                                    <div class="row mb-2">
+                                    <div class="row g-0 mb-2">
                                         <div class="col-7">
                                             <label class="form-label  px-2">Fullname: <small class="text-secondary">(Ln, Fn Mi)</small></label>
-                                            <input placeholder='Insert your name here' type="text" class="form-control text-dark" style="border-radius:20px;" name="updateFname" id="updateFname">
+                                            <input placeholder='Insert your name' type="text" class="form-control text-dark" style="border-radius:20px;" name="updateFname" id="updateFname">
                                         </div>
                                         <div class="col-5">
                                             <label class="form-label  px-2">Contact:</label>
-                                            <input placeholder='Insert your number here' type="text" class="form-control text-dark" style="border-radius:20px;" name="updateContact" id="updateContact">
+                                            <input placeholder='Insert your number' type="text" class="form-control text-dark" style="border-radius:20px;" name="updateContact" id="updateContact">
                                         </div>
                                     </div>
-                                    <div class="row g-3 mb-3">
+                                    <div class="row g-0 mb-2">
                                         <div class="col-12">
                                             <label class="form-label px-2">Address:</label>
-                                            <input placeholder='Insert your address here' type="text" class="form-control text-dark" style="border-radius:20px;" name="updateAddress" id="updateAddress">
+                                            <input placeholder='Insert your address' type="text" class="form-control text-dark" style="border-radius:20px;" name="updateAddress" id="updateAddress">
                                         </div>
                                     </div>
-                                    <div class="row g-3 mb-2">
-                                        <div class="col-6">
-                                            <label class="form-label px-2">Username:</label>
-                                            <input placeholder='Insert your username here' type="text" class="form-control text-dark" style="border-radius:20px;" name="updateUsername" id="updateUsername">
-                                        </div>
-                                        <div class="col-6">
-                                            <label class="form-label  px-2">Email:</label>
+                                    <div class="row">
+                                         <div class="col-8">
+                                            <label class="form-label px-2">Email:</label>
                                             <input placeholder='Insert your email here' type="text" class="form-control text-dark" style="border-radius:20px;" name="updateEmail" id="updateEmail">
                                         </div>
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col-12">
-                                            <label class="form-label  px-2">Password:</label>
-                                            <input placeholder='Update your password here' type="text" class="form-control text-dark text-center" style="border-radius:20px;" placeholder="CONFIDENTIAL" name="updatePassword">
+                                         <div class="col-4 pt-3">
+                                             <button type="button" id="updateBtn" name="updateBtn" class="btn text-white"  style="background-color: #826F66 !important;">Save changes</button>
                                         </div>
                                     </div>
-                            </div> 
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-5 ms-auto">
-                                    <button type="button" id="updateBtn" name="updateBtn" class="btn text-white"  style="background-color: #826F66 !important;">Save changes</button>
-                                </div>
+                                </div> 
                             </div>
                         </form>
                     </div>
@@ -242,10 +228,51 @@
                 </div>
             </div>
         <!-- END OF PENDING PRODUCT -->
+
+        <!-- CREDENTIALS -->
+            <div class="modal fade" id="updateAccountModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                        <div class="row">
+                            <div class="col-11">
+                                <h5 class="modal-title" id="exampleModalLabel">Update Account</h5>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                        <form id="updateAccountForm">
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" name="accountUsername"  id="accountUsername">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" name="accountPassword" id="accountPassword">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" onclick="seePassword()" class="form-check-input">
+                                <label class="form-check-label">Show Password</label>
+                            </div>
+                        </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 ms-auto">
+                                <button type="button" id="updateButton" name="updateButton" class="btn text-white"  style="background-color: #826F66 !important;">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        <!-- CREDENTIALS -->
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="/TNAN/includes/js/jquery-3.6.0.min.js"></script>
 <script src="/TNAN/includes/js/sweetalert.js"></script>
 <script src="/TNAN/admin/js/logout.js"></script>
-<script src="/TNAN/includes/js/zsaliahs.js"></script>
+<script src="/TNAN/includes/js/shop.js"></script>
 </html>

@@ -9,7 +9,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="/TNAN/admin/css/datables.css" rel="stylesheet">
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
-        <link href="/TNAN/admin/css/stylesheet.css" rel="stylesheet">
+        <link href="/TNAN/admin/css/admin.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
         <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
         <title>Zsaliah's Closet</title>
@@ -79,7 +79,7 @@
                             <a class="nav-link active" href="/TNAN/admin/Completed.php">&nbsp;&nbsp;COMPLETED&nbsp;&nbsp;</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="color:#AD8B73;"  href="http://localhost/TNAN/admin/Cancel.php">CANCEL</a>
+                            <a class="nav-link" style="color:#AD8B73;"  href="/TNAN/admin/Cancel.php">CANCEL</a>
                         </li>
                 </ul>
                     <div class="row">

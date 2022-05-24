@@ -2,7 +2,7 @@ $(document).ready(function(){
     $("#logout").on('click',function(){
         $.ajax({
             type: 'POST',
-            url: '/saintjames/php/logout.php',
+            url: '/TNAN/php/logout.php',
             success: function(response){
                 if(response == 1){
                     Swal.fire({

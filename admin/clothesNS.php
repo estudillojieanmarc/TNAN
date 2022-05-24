@@ -62,17 +62,17 @@
                 <h4 class="mb-3 pt-5"><i class="bi bi-calendar3-fill"></i> CLOTHES NO STOCK</h4>
                 <ul class="nav nav-tabs mb-4">
                     <li class="nav-item">
-                        <a class="nav-link" style="color:#AD8B73;" href="http://localhost/TNAN/admin/clothesA.php">ACTIVE</a>
+                        <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/clothesA.php">ACTIVE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="http://localhost/TNAN/admin/clothesNS.php">&nbsp;&nbsp;NO STOCK&nbsp;&nbsp;</a>
+                        <a class="nav-link active" href="/TNAN/admin/clothesNS.php">&nbsp;&nbsp;NO STOCK&nbsp;&nbsp;</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color:#AD8B73;" href="http://localhost/TNAN/admin/clothesNA.php">NOT ACTIVE</a>
+                        <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/clothesNA.php">NOT ACTIVE</a>
                     </li>
                 </ul>
                 <div class="d-flex col-12">
-                    <a type="button" class="btn text-white mx-1" style="background-color: #826F66 !important;" href="http://localhost/TNAN/admin/clothesNS.php"> <i class="fas fa-redo px-1"></i> REFRESH </a>
+                    <a type="button" class="btn text-white mx-1" style="background-color: #826F66 !important;" href="/TNAN/admin/clothesNS.php"> <i class="fas fa-redo px-1"></i> REFRESH </a>
                 </div>
             </div>
             

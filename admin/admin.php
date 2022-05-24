@@ -30,7 +30,7 @@
             $result2 = mysqli_query($con, $sql2);
             $customer = mysqli_num_rows($result2);
 
-            $sql3 = "SELECT SUM(total_amount) AS total FROM order_manager";
+            $sql3 = "SELECT SUM(total_amount) AS total FROM order_manager WHERE order_status = 'complete'";
             $result3 = mysqli_query($con, $sql3);
             while($row = mysqli_fetch_assoc($result3)){
                 $total_amount = $row['total'];
