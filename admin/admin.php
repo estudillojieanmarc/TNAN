@@ -153,7 +153,7 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <h5 class="card-title fw-bold pb-2"><i class="fas fa-project-diagram"></i> RECENT TRANSACTION DETAILS</h5>
-                            <table  class="table table-bordered text-center aligb-middle">
+                            <table class="table table-bordered text-center align-middle">
                                 <thead>
                                     <tr>
                                         <th>TRANSACTION ID</th>

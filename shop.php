@@ -175,8 +175,8 @@
                                             <label class="form-label px-2">Email:</label>
                                             <input placeholder='Insert your email here' type="text" class="form-control text-dark" style="border-radius:20px;" name="updateEmail" id="updateEmail">
                                         </div>
-                                         <div class="col-4 pt-3">
-                                             <button type="button" id="updateBtn" name="updateBtn" class="btn text-white"  style="background-color: #826F66 !important;">Save changes</button>
+                                         <div class="col-4" style="padding-top:22px;">
+                                             <button type="button" id="updateBtn" name="updateBtn" class="btn text-white px-5 py-3"  style="background-color: #826F66 !important; border-radius:8px; ">SAVE</button>
                                         </div>
                                     </div>
                                 </div> 
@@ -260,7 +260,7 @@
                         </div>
                         <div class="row">
                             <div class="col-5 ms-auto">
-                                <button type="button" id="updateButton" name="updateButton" class="btn text-white"  style="background-color: #826F66 !important;">Save changes</button>
+                                <button type="button" id="updateButton" name="updateButton" class="btn text-white py-2 px-4"  style="background-color: #826F66 !important;">Save changes</button>
                             </div>
                         </div>
                     </div>

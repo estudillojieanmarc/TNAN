@@ -1,0 +1,29 @@
+HOW TO ACCESS?
+1. Download the zip file and then extract after you extract move it to your htdocs 
+for example (C:\xampp\htdocs\TNAN) 
+2. How to access database: 
+2.1 open your xampp 
+2.2 click the admin from the mysql rows 
+2.3 create a database, and the name of db is (tnan) 
+2.4 click the db that you created, then export the tnan.sql from the TNAN Folder
+
+CONCERNS 
+1. Find this method and $target_dir from all of these files and update the path that includes those functions.
+For example
+
+1.1 TNAN/INCLUDES/PHP/manageProfile.php 
+-(change this path: "$target_dir = "C:/xampp/htdocs/TNAN/admin/assets/customersPhoto/";)"
+
+1.2 TNAN/ADMIN/PHP/UpdateFood.php 
+-(change this path: "$target_dir = C:/xampp/htdocs/TNAN/admin/assets/foodPhoto/")"
+
+1.4 TNAN/ADMIN/PHP/newDish.php
+-(change this path: "$target_dir = "C:/xampp/htdocs/TNAN/admin/assets/foodPhoto/";"
+ 
+2. Don't upload image with the same name (Only JPG, JPEG, PNG & GIF files are allowed)
+For example:
+-(image1.jpg and image1.jpg) is invalid
+-(image1.png and image1.jpg) is valid
+
+
+3. 

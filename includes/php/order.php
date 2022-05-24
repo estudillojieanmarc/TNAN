@@ -19,12 +19,12 @@
                     VALUES ('$_SESSION[uid]', '$total_amount', '$payment_option', now(), 'Order')";
                     $result = mysqli_query($con,$sql);
                     if($result){
+                        $order_id = $con->insert_id;
                         foreach($foodID as $index => $productId){
                             $f_productId = $productId;
                             $f_quantity = $quantity[$index];
-                            $f_total = $total[$index];
-                            $order_id = mysqli_insert_id($con);
-            
+                            $f_total = $total[$index];  
+
                             $sql2 = "INSERT INTO `user_orders` (`order_id`, `product`, `quantity`, `total`, `date_time_bought`) 
                             VALUES ('$order_id','$f_productId','$f_quantity','$f_total',now())";            
                             $result2 = mysqli_query($con,$sql2);
