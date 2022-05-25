@@ -9,7 +9,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="/TNAN/admin/css/datables.css" rel="stylesheet">
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
-        <link href="/TNAN/admin/css/admin.css" rel="stylesheet">
+        <link href="/TNAN/admin/css/clothes.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
         <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
@@ -57,7 +57,7 @@
             <p class="text-center pt-5 sm-mt-5" id="clockDisplay"></p>
             <p class="text-center" id="dateDisplay"></p>
         </div>
-        <div style="margin-left:15%">
+        <div style="margin-left:13%">
             <div class="container bg-white pt-5 mt-2">
                 <h4 class="mb-3 pt-5"><i class="bi bi-calendar3-fill"></i> CLOTHES NO STOCK</h4>
                 <ul class="nav nav-tabs mb-4">
@@ -191,7 +191,6 @@
                 });
         </script>
     <!-- END DETABLES BEHAVIOR -->
-
 
     <!-- FUNCTION FOR FETCH DATA FOR THE UPDATE MODAL -->
          <script>    

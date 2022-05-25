@@ -9,7 +9,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="/TNAN/admin/css/datables.css" rel="stylesheet">
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
-        <link href="/TNAN/admin/css/stylesheet.css" rel="stylesheet">
+        <link href="/TNAN/admin/css/clothes.css" rel="stylesheet">
         <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -62,14 +62,14 @@
         </div>
         <div style="margin-left:15%">
             <div class="container bg-white pt-5 mt-2">
-                <h4 class="mb-3 pt-5"><i class="bi bi-calendar3-fill"></i> CLOTHES NO ACTIVE</h4>
+                <h4 class="mb-3 pt-5"><i class="bi bi-calendar3-fill"></i> CLOTHES NOT ACTIVE</h4>
                 <ul class="nav nav-tabs mb-4">
                     <li class="nav-item">
                         <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/clothesA.php">ACTIVE</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/clothesNS.php">NO STOCK</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link active" href="/TNAN/admin/clothesNA.php">&nbsp;&nbsp;NOT ACTIVE&nbsp;&nbsp;</a>
                     </li>
@@ -88,7 +88,7 @@
                     </form>
                     </div>
                 </div>
-                <table id="foodTable" style="border:none;" class="table table-borderless  text-center align-middle" style="border-top:1px solid black;">
+                <table id="foodTable" style="border:none;" class="table table-borderless table-striped text-center align-middle" style="border-top:1px solid black;">
                     <thead style="font-size:18px;">
                         <tr>
                             <th>Product</th>
@@ -98,7 +98,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody id="foodData"></tbody>
+                    <tbody id="foodData" class="text-center"></tbody>
                 </table>
             </div>
         </div>
@@ -167,15 +167,14 @@
      </div>
     <!-- END UPDATE DISH MODAL -->
 
-     <!-- PLUGINS SCRIPT -->
+    <!-- PLUGINS SCRIPT -->
         <script src="/TNAN/admin/js/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="/TNAN/admin/js/sweetalert.js"></script>
         <script src="/TNAN/admin/js/datables.js"></script>
         <script src="/TNAN/admin/js/logout.js"></script>
         <script src="/TNAN/admin/js/Date_Time.js"></script>
-
-     <!-- END OF PLUGINS JS  -->
+    <!-- END OF PLUGINS JS  -->
 
     <!-- DETABLES BEHAVIOR -->
         <script>
@@ -236,18 +235,35 @@
                             type: 'POST',
                             dataType: 'json',
                             data: {foodStatusID: id},
+                            success:function(response){
+                               if(response == 1){
+                                    Swal.fire({
+                                        title: 'Activate Succesfully',
+                                        text: "Product was activate successfully",
+                                        icon: 'success',
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Continue'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            getFoodNA();
+                                        }
+                                    })
+                                }else if(response == 0){
+                                    Swal.fire(
+                                    'Update Failed',
+                                    'Product was not activate successfully',
+                                    'error'
+                                    )
+                                }else if(response == 2){
+                                    Swal.fire(
+                                    'Update Failed',
+                                    'Sorry, The stock is equal to 0',
+                                    'error'
+                                    )
+                                }
+                            }
                         });
-                        Swal.fire({
-                        title: 'Activate Succesfully',
-                        text: "Product was activate successfully",
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Continue'
-                        }).then((result) => {
-                        if (result.isConfirmed) {
-                            getFoodNA();
-                        }
-                        })
+                   
                         }
                         })
                     }
@@ -414,3 +430,15 @@
 
 </body>
 </html>
+
+<!-- Swal.fire({
+                        title: 'Activate Succesfully',
+                        text: "Product was activate successfully",
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continue'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            getFoodNA();
+                        }
+                        }) -->

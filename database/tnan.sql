@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2022 at 06:33 PM
+-- Generation Time: May 25, 2022 at 03:16 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -61,7 +61,9 @@ INSERT INTO `cart` (`id`, `p_id`, `user_id`, `qty`) VALUES
 (479, 11, 50, 1),
 (480, 10, 50, 1),
 (533, 15, 54, 1),
-(534, 13, 54, 1);
+(534, 13, 54, 1),
+(609, 19, 60, 1),
+(610, 40, 60, 1);
 
 -- --------------------------------------------------------
 
@@ -113,10 +115,12 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customerID`, `customerImage`, `customerName`, `customerContact`, `customerAddress`, `customerEmail`, `customerUsername`, `customerPassword`, `customerStatus`) VALUES
-(52, 'default.png', 'John Doe Pingris', '09398320588', 'Brgy. Tibay ng Tondo Manila', 'johndoe@gmail.com', 'johndoe123', 'd763ec748433fb79a04f82bd46133d55', 0),
+(52, 'default.png', 'Charice Pempengo', '09398320588', 'Brgy. Tibay ng Tondo Manila', 'charice@gmail.com', 'charice123', 'd763ec748433fb79a04f82bd46133d55', 0),
 (55, 'default.png', 'Nadine Lustre', '09398320585', 'Brgy. Broken ng Tondo Manila', 'nadine@gmail.com', 'Nadin123', 'b06a6f494253f7919b0421af10c2cd82', 0),
 (56, 'default.png', 'Aiza Seguera', '09398320583', 'Brgy. Sad ng Tondo Manila', 'Aiza@gmail.com', 'Aiza123', 'b38ac18016d255ee4e9a364fb6490ebf', 0),
-(57, 'default.png', 'Andrea Torres', '09398320582', 'Brgy. GIrl ng Tondo Manila', 'andrea@gmail.com', 'Andrea123', '8d28898f353eda472701f2b68d2a8cdb', 0);
+(57, 'fttcs.jpg', 'Andrea Torres', '09398320582', 'Brgy. GIrl ng Tondo Manila', 'andrea@gmail.com', 'Andrea123', '8d28898f353eda472701f2b68d2a8cdb', 0),
+(58, 'fttcs.jpg', 'Francine Diaz', '09398320588', 'Brgy. anddrea ng Tondo Manila', 'francine@gmail.com', 'diaz123', '868310c023ef93de5db48a7bf83178a9', 0),
+(59, 'default.png', 'Julia Barreto', '', '', '', 'Julia123', '8f3af6dd20c51a8aea355f8c97b53415', 0);
 
 -- --------------------------------------------------------
 
@@ -140,56 +144,32 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`foodID`, `foodImage`, `foodName`, `foodCategory`, `foodStock`, `foodDescription`, `foodPrice`, `foodStatus`) VALUES
-(9, 'aa.jpg', 'Outfit (27)', 3, '0', '1 BuFashion for Lorem ipsum dolor si', 500, 0),
-(10, 'i.jpg', 'Outfit (21)', 1, '0', '2 LitFashion for Lorem ipsum dolor si', 600, 0),
+(9, 'aa.jpg', 'Outfit (27)', 3, '5', '1 BuFashion for Lorem ipsum dolor si', 500, 0),
+(10, 'i.jpg', 'Outfit (21)', 1, '3', '2 LitFashion for Lorem ipsum dolor si', 600, 0),
 (11, 'c.jpg', 'Outfit (22)', 10, '0', 'PansFashion for Lorem ipsum dolor si', 850, 0),
-(12, 'd.jpg', 'Outfit (20)', 9, '-7', 'GrahFashion for Lorem ipsum dolor si', 500, 0),
-(13, 'e.jpg', 'Outfit (19)', 8, '0', 'SiniFashion for Lorem ipsum dolor si', 700, 0),
-(14, 'f.jpg', 'Outfit (18)', 7, '0', 'PinakbeFashion for Lorem ipsum dolor si', 400, 0),
-(15, 'g.jpg', 'Outfit (17)', 7, '0', 'TakoFashion for Lorem ipsum dolor si', 500, 0),
-(16, 'h.jpg', 'Outfit (16)', 6, '4', 'SizzlFashion for Lorem ipsum dolor si', 300, 0),
-(17, 'b.jpg', 'Outfit (15)', 5, '0', 'ChFashion for Lorem ipsum dolor si', 600, 0),
-(18, 'j.jpg', 'Outfit (14)', 4, '-1', 'HoliFashion for Lorem ipsum dolor si', 500, 0),
-(19, 'k.jpg', 'Outfit (13)', 3, '0', 'goFashion for Lorem ipsum dolor si', 600, 0),
-(20, 'l.jpg', 'Outfit (12)', 2, '7', 'An iFashion for Lorem ipsum dolor si', 1000, 0),
-(21, 'm.jpg', 'Outfit (11)', 1, '5', '1.Fashion for Lorem ipsum dolor si', 500, 0),
+(12, 'd.jpg', 'Outfit (20)', 9, '3', 'GrahFashion for Lorem ipsum dolor si', 500, 0),
+(13, 'e.jpg', 'Outfit (19)', 8, '5', 'SiniFashion for Lorem ipsum dolor si', 700, 0),
+(14, 'f.jpg', 'Outfit (18)', 7, '4', 'PinakbeFashion for Lorem ipsum dolor si', 400, 0),
+(15, 'g.jpg', 'Outfit (17)', 7, '5', 'TakoFashion for Lorem ipsum dolor si', 500, 0),
+(16, 'h.jpg', 'Outfit (16)', 6, '2', 'SizzlFashion for Lorem ipsum dolor si', 300, 0),
+(17, 'b.jpg', 'Outfit (15)', 5, '4', 'ChFashion for Lorem ipsum dolor si', 600, 0),
+(18, 'j.jpg', 'Outfit (14)', 4, '1', 'HoliFashion for Lorem ipsum dolor si', 500, 0),
+(19, 'k.jpg', 'Outfit (13)', 3, '3', 'goFashion for Lorem ipsum dolor si', 600, 0),
+(20, 'l.jpg', 'Outfit (12)', 2, '4', 'An iFashion for Lorem ipsum dolor si', 1000, 0),
+(21, 'm.jpg', 'Outfit (28)', 1, '1', '1.Fashion for Lorem ipsum dolor si', 500, 1),
 (22, 'n.jpg', 'Outfit (11)', 10, '4', 'FiliFashion for Lorem ipsum dolor si', 850, 0),
-(23, 'o.jpg', 'Outfit (10)', 9, '4', 'StraFashion for Lorem ipsum dolor si', 500, 0),
-(24, 'p.jpg', 'Outfit (09)', 8, '2', 'AdFashion for Lorem ipsum dolor si', 160, 0),
-(25, 'q.jpg', 'Outfit (08)', 7, '5', 'GiniFashion for Lorem ipsum dolor si', 600, 0),
-(26, 'r.jpg', 'Outfit (07)', 6, '7', 'NilFashion for LakoFashion for orem ipsum dolor si', 800, 0),
-(27, 's.jpg', 'Outfit (06)', 5, '8', 'A salaFashion for Lorem ipsum dolor si', 600, 0),
-(28, 't.jpg', 'Outfit (05)', 2, '3', 'KapeFashion for Lorem ipsum dolor si', 450, 0),
+(23, 'o.jpg', 'Outfit (10)', 9, '0', 'StraFashion for Lorem ipsum dolor si', 500, 0),
+(24, 'p.jpg', 'Outfit (09)', 8, '2', 'AdFashion for Lorem ipsum dolor si', 160, 1),
+(25, 'q.jpg', 'Outfit (08)', 7, '0', 'GiniFashion for Lorem ipsum dolor si', 600, 0),
+(26, 'r.jpg', 'Outfit (07)', 6, '0', 'NilFashion for LakoFashion for orem ipsum dolor si', 800, 0),
+(27, 's.jpg', 'Outfit (06)', 5, '8', 'A salaFashion for Lorem ipsum dolor si', 600, 1),
+(28, 't.jpg', 'Outfit (05)', 2, '3', 'KapeFashion for Lorem ipsum dolor si', 450, 1),
 (29, 'u.jpg', 'Outfit (04)', 6, '4', 'Fashion for Lorem ipsum dolor si', 700, 0),
-(30, 'v.jpg', 'Outfit (03)', 6, '3', 'Fashion for Lorem ipsum dolor si', 800, 0),
-(33, 'w.jpg', 'Outfit (02)', 6, '1', 'Fashion for Lorem ipsum dolor si', 1000, 0),
+(30, 'v.jpg', 'Outfit (03)', 6, '1', 'Fashion for Lorem ipsum dolor si', 800, 0),
+(33, 'w.jpg', 'Outfit (02)', 6, '9', 'Fashion for Lorem ipsum dolor si', 1000, 0),
 (34, 'x.jpg', 'Outfit (01)', 4, '1', 'Lorem ipsum dolor Fashion for Fashion for ', 500, 0),
 (35, 'y.jpg', 'Outfit (23) ', 1, '1', 'Lorem ipsum dolor si si la feisi a feisi  a feisi ', 300, 0),
 (40, 'fttcs.jpg', 'Outfit (28) ', 3, '-8', 'try ged asda sd das da sd', 300, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `inbox`
---
-
-CREATE TABLE `inbox` (
-  `inbox_id` int(11) NOT NULL,
-  `complaintID` int(11) NOT NULL,
-  `user_Id` int(11) NOT NULL,
-  `message` varchar(500) NOT NULL,
-  `date_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `is_deleted` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `inbox`
---
-
-INSERT INTO `inbox` (`inbox_id`, `complaintID`, `user_Id`, `message`, `date_time`, `is_deleted`) VALUES
-(61, 93, 44, 'Kasi ang sapatos ng pagmamahal ay hinambalos sa pagibig ko sa yo ', '2021-12-17 18:54:40', 1),
-(62, 5, 25, 'Hi din', '2021-12-19 06:06:47', 1),
-(63, 5, 25, 'Hi din', '2021-12-19 06:06:47', 1);
 
 -- --------------------------------------------------------
 
@@ -247,7 +227,11 @@ INSERT INTO `order_manager` (`order_id`, `user_id`, `total_amount`, `payment_opt
 (161, 57, 800, 'Cash On Delivery', '2022-05-24 16:11:48', 'complete'),
 (162, 55, 800, 'Cash On Delivery', '2022-05-24 16:11:49', 'complete'),
 (163, 56, 1300, 'Cash On Delivery', '2022-05-24 16:11:51', 'complete'),
-(164, 57, 1300, 'Cash On Delivery', '2022-05-24 16:20:27', 'complete');
+(164, 57, 1300, 'Cash On Delivery', '2022-05-24 16:20:27', 'complete'),
+(165, 55, 1300, 'Cash On Delivery', '2022-05-25 11:19:58', 'complete'),
+(166, 57, 1500, 'Cash On Delivery', '2022-05-25 09:50:57', 'complete'),
+(168, 58, 1800, 'Cash On Delivery', '2022-05-25 10:26:16', 'complete'),
+(169, 60, 2300, 'Cash On Delivery', '2022-05-25 13:03:48', 'complete');
 
 -- --------------------------------------------------------
 
@@ -386,7 +370,19 @@ INSERT INTO `user_orders` (`order_id`, `product`, `quantity`, `total`, `date_tim
 (163, '16', 1, 300, '2022-05-24 16:11:04'),
 (163, '20', 1, 1000, '2022-05-24 16:11:05'),
 (164, '16', 1, 300, '2022-05-24 16:12:05'),
-(164, '20', 1, 1000, '2022-05-24 16:12:05');
+(164, '20', 1, 1000, '2022-05-24 16:12:05'),
+(165, '16', 1, 300, '2022-05-25 05:22:03'),
+(165, '20', 1, 1000, '2022-05-25 05:22:03'),
+(166, '21', 1, 500, '2022-05-25 07:48:24'),
+(166, '20', 1, 1000, '2022-05-25 07:48:24'),
+(167, '16', 1, 300, '2022-05-25 09:31:04'),
+(167, '20', 1, 1000, '2022-05-25 09:31:04'),
+(168, '10', 1, 600, '2022-05-25 10:22:04'),
+(168, '9', 1, 500, '2022-05-25 10:22:04'),
+(168, '13', 1, 700, '2022-05-25 10:22:04'),
+(169, '10', 3, 1800, '2022-05-25 12:53:10'),
+(169, '9', 1, 500, '2022-05-25 12:53:10'),
+(170, '9', 1, 500, '2022-05-25 13:13:44');
 
 --
 -- Indexes for dumped tables
@@ -423,12 +419,6 @@ ALTER TABLE `food`
   ADD PRIMARY KEY (`foodID`);
 
 --
--- Indexes for table `inbox`
---
-ALTER TABLE `inbox`
-  ADD PRIMARY KEY (`inbox_id`);
-
---
 -- Indexes for table `order_manager`
 --
 ALTER TABLE `order_manager`
@@ -448,7 +438,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=589;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=611;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -460,25 +450,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `foodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
-
---
--- AUTO_INCREMENT for table `inbox`
---
-ALTER TABLE `inbox`
-  MODIFY `inbox_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `foodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `order_manager`
 --
 ALTER TABLE `order_manager`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -210,7 +210,7 @@
 
         <!-- PENDING PRODUCT -->
             <div class="modal fade" id="pendingModal">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-body">
                             <div class="row g-4">

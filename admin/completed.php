@@ -11,6 +11,7 @@
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
         <link href="/TNAN/admin/css/admin.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
         <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
         <title>Zsaliah's Closet</title>
 </head>
@@ -91,13 +92,12 @@
                                     </form>
                                 </div>
                             </div>
-                            <table class="table table-bordered align-middle text-center">
+                            <table id="tableComplete" class="table table-bordered align-middle text-center">
                                 <thead>
                                     <tr>
-                                        <th width="12%">TRANSACTION ID</th>
                                         <th>USER</th>
                                         <th>TOTAL AMOUNT PAY</th>
-                                        <th>DATE TIME BOUGHT</th>
+                                        <th>PURCHASED ON</th>
                                         <th>PAYMENT OPTION</th>
                                         <th>ACTION</th>
                                     </tr>
@@ -126,15 +126,6 @@
         <script>
                 $(document).ready( function () {
                     complete();
-                    $('#customerTable').DataTable({
-                        ordering:false,
-                        searching:true,
-                        paging:true,
-                        bLengthChange: true,
-                        info:true,
-                        scrollY: "52vh",
-                        scrollX: false,
-                    });
                 });
         </script>
     <!-- END DETABLES BEHAVIOR -->

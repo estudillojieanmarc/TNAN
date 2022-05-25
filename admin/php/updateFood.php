@@ -40,14 +40,14 @@
             }
             else {
             if (move_uploaded_file($_FILES["updateImage"]["tmp_name"], $target_file)) {
-                        // $oldImage = "SELECT `foodImage` FROM `food` WHERE `foodID` = '$updateID'";
-                        // $result = mysqli_query($con, $oldImage);
-                        // if(mysqli_num_rows($result)>0){
-                        //     {
-                        //         $foodImage = mysqli_fetch_array($result);
-                        //         unlink("C:/xampp/htdocs/TNAN/admin/assets/foodPhoto/".$foodImage[0]);
-                        //     }
-                        // }
+                        $oldImage = "SELECT `foodImage` FROM `food` WHERE `foodID` = '$updateID'";
+                        $result = mysqli_query($con, $oldImage);
+                        if(mysqli_num_rows($result)>0){
+                            {
+                                $foodImage = mysqli_fetch_array($result);
+                                unlink("C:/xampp/htdocs/TNAN/admin/assets/foodPhoto/".$foodImage[0]);
+                            }
+                        }
                     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
                     $sql = "UPDATE `food` SET `foodImage`='$updateImage',`foodName`='$updateName',`foodCategory`='$updateCategory', `foodStock`='$updateStock' ,
                     `foodDescription`='$updateDescription',`foodPrice`='$updatePrice'WHERE `foodID` =  '$updateID'";

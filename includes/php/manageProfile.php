@@ -34,8 +34,6 @@
                 exit();  
             }else {
             if (move_uploaded_file($_FILES["updateImage"]["tmp_name"], $target_file)) {
-                    $password = $updatePassword;
-                    $encode = base64_encode($password);
                     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
                     $sql = "UPDATE `customers` SET `customerImage` = '$updateImage', `customerName` = '$updateFname', `customerContact` = '$updateContact', `customerAddress` = '$updateAddress', `customerEmail` = '$updateEmail' WHERE `customerID` = '$_SESSION[uid]'";
                     $result = mysqli_query($con, $sql);

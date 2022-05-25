@@ -9,7 +9,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="/TNAN/admin/css/datables.css" rel="stylesheet">
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
-        <link href="/TNAN/admin/css/admin.css" rel="stylesheet">
+        <link href="/TNAN/admin/css/clothes.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
         <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
@@ -18,7 +18,7 @@
 </head>
 <body>
     <!-- NAVBAR -->
-         <nav style="background-color: #d5bbac !important; " class="navbar navbar-expand-lg navbar-dark  py-2 fixed-top px-5">
+        <nav style="background-color: #d5bbac !important; " class="navbar navbar-expand-lg navbar-dark  py-2 fixed-top px-5">
         <a class="navbar-brand me-auto ms-2" href="#" style="color:#201812">Zsaliah's Closet <i class="fas fa-columns px-1"></i></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -60,18 +60,18 @@
         <div style="margin-left:15%">
             <div class="container bg-white pt-5 mt-2">
                 <h4 class="mb-3 pt-5"><i class="bi bi-calendar3-fill"></i> CLOTHES ACTIVE</h4>
-                <ul class="nav nav-tabs mb-4">
+                <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active" href="/TNAN/admin/clothesA.php">&nbsp;&nbsp;ACTIVE&nbsp;&nbsp;</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/clothesNS.php">NO STOCK</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" style="color:#AD8B73;" href="/TNAN/admin/clothesNA.php">NOT ACTIVE</a>
                     </li>
                 </ul>
-                <div class="d-flex col-12">
+                <div class="d-flex col-12 mt-4">
                     <a type="button" class="btn text-white mx-1" style="background-color: #826F66 !important;" href="/TNAN/admin/clothesA.php"> <i class="fas fa-redo px-1"></i> REFRESH </a>
                     <button type="button" class="btn text-white mx-1" style="background-color: #826F66 !important;" data-bs-toggle="modal" data-bs-target="#addDish"> <i class="fas fa-plus px-1"></i> ADD PRODUCT</button>
                 </div>

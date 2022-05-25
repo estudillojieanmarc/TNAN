@@ -11,6 +11,7 @@
         <link href="/TNAN/admin/css/fontAwesome.css" rel="stylesheet">
         <link href="/TNAN/admin/css/admin.css" rel="stylesheet">
         <link href="/TNAN/admin/css/w3school.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
         <link rel="icon" type="image/gif/png" href="/TNAN/admin/assets/images/logo.png">
         <title>Zsaliah's Closet</title>
 </head>

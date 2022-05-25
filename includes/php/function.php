@@ -42,7 +42,7 @@ if(isset($_POST["category"])){
 
 // PAGE LIMIT FUNCTION
 if(isset($_POST["page"])){
-	$sql = "SELECT * FROM food";
+	$sql = "SELECT * FROM food WHERE foodStock > 0 AND foodStatus = 0";
 	$run_query = mysqli_query($con,$sql);
 	$count = mysqli_num_rows($run_query);
 	$pageno = ceil($count/12);
@@ -343,34 +343,48 @@ if(isset($_POST['customerDetails'])){
 
 // FUNCTION FETCH PURCHASE HISTORY FROM THE DATABASE
 if(isset($_POST["purchaseHistory"])){
-	error_reporting(0);
 	$Received = 'Received';
 	$Complete = 'Complete';
-	$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.date_time_bought, b.order_id, b.product, b.quantity, b.total, c.customerID, c.customerName , d.foodID , d.foodName
-	FROM order_manager a , user_orders b , customers c , food d WHERE a.order_status = '$Received' AND a.order_id = b.order_id 
-	AND a.user_id = c.customerID AND b.product = d.foodID OR a.order_status = '$Complete' AND a.order_id = b.order_id 
-	AND a.user_id = c.customerID AND b.product = d.foodID ORDER BY a.date_time_bought DESC";	
+	$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.order_status, c.customerID, c.customerName
+		FROM order_manager a , customers c WHERE a.order_status = 'Complete' AND a.order_status = 'Received'
+		AND a.user_id = '$_SESSION[uid]' AND  c.customerID = '$_SESSION[uid]' 
+		AND a.user_id =  c.customerID";
 		$result = mysqli_query($con,$product_query);
 		if(mysqli_num_rows($result) > 0){
 		while($row = mysqli_fetch_array($result)){
-			$foodName = $row['foodName'];
-			$quantity = $row['quantity'];
-			$total = $row['total'];
-			$total_amount = $total + 50;
-			$payment_option = $row['payment_option'];
-			$date_time_bought = $row['date_time_bought'];
-			$newDate = date('F d, Y',strtotime($date_time_bought));
-			$n++;
-			echo "
-			<div class='card mt-3'>
-			<div class='card-body text-start border-2 shadow round'>
-					<h6 class='card-title text-secondary'>Order: x$quantity of $foodName</h6>
-					<h6 class='card-title text-secondary '>Total Amount: ₱$total_amount.00</h6>
-					<h6 class='card-title text-secondary '>Payment Option: $payment_option</h6>
-					<h6 class='card-title text-secondary'>Date Bought By: $newDate</h6>
-				</div>
-			</div>         
-			";
+			    $order_id   = $row['order_id'];
+				$customerName = $row['customerName'];
+				$order_status = $row['order_status'];
+				$payment_option = $row['payment_option'];
+				$total_amount = $row['total_amount'];
+				$grandtotal = $total_amount + 50;
+				if($row['order_status'] == 'To Deliver'){
+				echo "
+				<div class='col-4 mb-4'>		
+					<div class='card'>
+							<div class='card-body'>
+					";
+						$order_query = "SELECT a.order_id , a.product, a.quantity, a.total, b.foodID, b.foodName 
+						FROM user_orders a INNER JOIN food b ON a.product = b.foodID WHERE order_id = '$row[order_id]'";
+						$runs_query = mysqli_query($con,$order_query); 
+						while($order_result = mysqli_fetch_array($runs_query))
+						{				
+						$quantity = $order_result['quantity'];
+						$product  = $order_result['foodName'];
+						$total  = $order_result['total'];
+						echo"
+						<p class='card-title'>⁃ x$quantity of $product total of: ₱$total.00</p>";
+						}
+						echo"
+							<p class='card-title fw-bold pt-2'>Payment:</p>
+							<p class='card-title'>Option: $payment_option</p>
+							<p class='card-title'>Fee: ₱$total_amount.00 + Delivery Fee ₱50.00</p>
+							<p class='card-title'>Total Amount: <span class='fw-bold text-danger'>₱$grandtotal.00</span></p>
+						</div>
+						<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=received('$order_id') class='btn btn-sm text-white py-3'>RECEIVE ORDER </button>					</div>
+						</div> 
+					";
+			}
 		}
 	}else{
 		echo "
@@ -386,8 +400,10 @@ if(isset($_POST["purchaseHistory"])){
 
 // FUNCTION FETCH PENDING PRODUCT FROM THE DATABASE
 if(isset($_POST["pendingID"])){
-		$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.order_status, b.order_id, b.product, b.quantity, b.total, b.date_time_bought, c.customerID, c.customerName , c.customerContact, c.customerAddress, d.foodID , d.foodName, d.foodDescription 
-		FROM order_manager a , user_orders b , customers c , food d WHERE a.order_status != 'Complete' AND a.order_status != 'Received' AND a.order_status != 'Cancel' AND a.order_id = b.order_id AND a.user_id = c.customerID AND b.product = d.foodID";
+		$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.order_status, c.customerID, c.customerName
+		FROM order_manager a , customers c WHERE a.order_status != 'Complete' AND a.order_status != 'Received'
+		AND a.order_status != 'Cancel' AND a.user_id = '$_SESSION[uid]' AND  c.customerID = '$_SESSION[uid]' 
+		AND a.user_id =  c.customerID";
 		$run_query = mysqli_query($con,$product_query);
 		if(mysqli_num_rows($run_query) > 0){
 			while($row = mysqli_fetch_array($run_query)){	
@@ -395,64 +411,99 @@ if(isset($_POST["pendingID"])){
 				$customerName = $row['customerName'];
 				$order_status = $row['order_status'];
 				$payment_option = $row['payment_option'];
-				$foodName = $row['foodName'];
-				$quantity = $row['quantity'];
 				$total_amount = $row['total_amount'];
 				$grandtotal = $total_amount + 50;
-				$date_time_bought = $row['date_time_bought'];
 				if($row['order_status'] == 'To Deliver'){
-					echo "
-						<div class='col-4 mb-4'>
-							<div class='card'>
-								<div class='card-header text-center' style='background-color:#826F66;'>
-									<p class='card-text text-white'>ORDERED DETAILS</p>
-								</div>
-								<div class='card-body'>
-									<h5 style='font-size:16px;' class='card-title fw-bold' style='text-transform:Uppercase;'>$order_status</h5>
-									<p style='font-size:15px;' class='card-text'>ORDER: x$quantity of $foodName </p>
-									<p style='font-size:15px;' class='card-text'>Total: ₱$total_amount.00 + Delivery fee: ₱50.00</p>
-									<p style='font-size:15px;' class='card-text'>Total Amount: ₱$grandtotal.00</p>
-									<p style='font-size:15px;' class='card-text text-secodary' style='text-transform:Uppercase;'>$payment_option</p>
-								</div>
-									<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=received('$order_id') class='btn btn-sm text-white py-2 mt-3'>RECEIVE ORDER </button>
+				echo "
+				<div class='col-4 mb-4'>		
+					<div class='card'>
+						<div class='card-header' style='background-color:#826F66;'>
+							<p class='card-text text-white py-2 text-center'>ORDERED DETAILS</p>
 							</div>
+							<div class='card-body'>
+							<p class='card-title fw-bold'>Status:<span class='text-primary'> $order_status</span></p>
+							<p class='card-title fw-bold pt-2'>Order:</p>
+					";
+						$order_query = "SELECT a.order_id , a.product, a.quantity, a.total, b.foodID, b.foodName 
+						FROM user_orders a INNER JOIN food b ON a.product = b.foodID WHERE order_id = '$row[order_id]'";
+						$runs_query = mysqli_query($con,$order_query); 
+						while($order_result = mysqli_fetch_array($runs_query))
+						{				
+						$quantity = $order_result['quantity'];
+						$product  = $order_result['foodName'];
+						$total  = $order_result['total'];
+						echo"
+						<p class='card-title'>⁃ x$quantity of $product total of: ₱$total.00</p>";
+						}
+						echo"
+							<p class='card-title fw-bold pt-2'>Payment:</p>
+							<p class='card-title'>Option: $payment_option</p>
+							<p class='card-title'>Fee: ₱$total_amount.00 + Delivery Fee ₱50.00</p>
+							<p class='card-title'>Total Amount: <span class='fw-bold text-danger'>₱$grandtotal.00</span></p>
 						</div>
+						<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=received('$order_id') class='btn btn-sm text-white py-3'>RECEIVE ORDER </button>					</div>
+				</div> 
 						";
 				}else if($row['order_status'] == 'Order'){
-					echo "
-						<div class='col-4 mb-4'>
-							<div class='card'>
-								<div class='card-header text-center' style='background-color:#826F66;'>
-									<p class='card-text text-white'>ORDERED DETAILS</p>
-								</div>
-								<div class='card-body'>
-									<h5 style='font-size:16px;' class='card-title fw-bold' style='text-transform:Uppercase;'>$order_status</h5>
-									<p style='font-size:15px;' class='card-text'>ORDER: x$quantity of $foodName </p>
-									<p style='font-size:15px;' class='card-text'>Total: ₱$total_amount.00 + Delivery fee: ₱50.00</p>
-									<p style='font-size:15px;' class='card-text'>Total Amount: ₱$grandtotal.00</p>
-									<p style='font-size:15px;' class='card-text text-secodary' style='text-transform:Uppercase;'>$payment_option</p>
-								</div>
-									<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=cancel('$order_id') class='btn btn-sm text-white py-2 mt-3'>CANCEL ORDER</button>
+				echo "
+					<div class='col-4 mb-4'>		
+					<div class='card'>
+						<div class='card-header' style='background-color:#826F66;'>
+							<p class='card-text text-white py-2 text-center'>ORDERED DETAILS</p>
 							</div>
+							<div class='card-body'>
+							<p class='card-title fw-bold'>Status:<span class='text-danger'> Pending $order_status</span></p>
+							<p class='card-title fw-bold pt-2'>Order:</p>
+					";
+						$order_query = "SELECT a.order_id , a.product, a.quantity, a.total, b.foodID, b.foodName 
+						FROM user_orders a INNER JOIN food b ON a.product = b.foodID WHERE order_id = '$row[order_id]'";
+						$runs_query = mysqli_query($con,$order_query); 
+						while($order_result = mysqli_fetch_array($runs_query))
+						{				
+						$quantity = $order_result['quantity'];
+						$product  = $order_result['foodName'];
+						$total  = $order_result['total'];
+						echo"<p class='card-title'>⁃ x$quantity of $product total of: ₱$total.00</p>";
+						}
+						echo"
+							<p class='card-title fw-bold pt-2'>Payment:</p>
+							<p class='card-title'>Option: $payment_option</p>
+							<p class='card-title'>Fee: ₱$total_amount.00 + Delivery Fee ₱50.00</p>
+							<p class='card-title'>Total Amount: <span class='fw-bold text-danger'>₱$grandtotal.00</span></p>
 						</div>
+						<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=cancel('$order_id') class='btn btn-sm text-white py-3'>CANCEL ORDER</button>
+				</div> 
 						";
 				}else{
 					echo "
-						<div class='col-4 mb-4'>
-							<div class='card'>
-								<div class='card-header text-center' style='background-color:#826F66;'>
-									<p class='card-text text-white'>ORDERED DETAILS</p>
-								</div>
-								<div class='card-body'>
-									<h5 style='font-size:16px;' class='card-title fw-bold' style='text-transform:Uppercase;'>$order_status</h5>
-									<p style='font-size:15px;' class='card-text'>ORDER: x$quantity of $foodName </p>
-									<p style='font-size:15px;' class='card-text'>Total: ₱$total_amount.00 + Delivery fee: ₱50.00</p>
-									<p style='font-size:15px;' class='card-text'>Total Amount: ₱$grandtotal.00</p>
-									<p style='font-size:15px;' class='card-text text-secodary' style='text-transform:Uppercase;'>$payment_option</p>
-								</div>
-									<button disabled style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=received('$order_id') class='btn btn-sm text-white py-2 mt-3'>RECEIVE ORDER </button>
+					<div class='col-4 mb-4'>		
+					<div class='card'>
+						<div class='card-header' style='background-color:#826F66;'>
+							<p class='card-text text-white py-2 text-center'>ORDERED DETAILS</p>
 							</div>
+							<div class='card-body'>
+							<p class='card-title fw-bold'>Status:<span class='text-primary'> $order_status</span></p>
+							<p class='card-title fw-bold pt-2'>Order:</p>
+					";
+						$order_query = "SELECT a.order_id , a.product, a.quantity, a.total, b.foodID, b.foodName 
+						FROM user_orders a INNER JOIN food b ON a.product = b.foodID WHERE order_id = '$row[order_id]'";
+						$runs_query = mysqli_query($con,$order_query); 
+						while($order_result = mysqli_fetch_array($runs_query))
+						{				
+						$quantity = $order_result['quantity'];
+						$product  = $order_result['foodName'];
+						$total  = $order_result['total'];
+						echo"<p class='card-title'>x$quantity of $product total of: ₱$total.00</p>";
+						}
+						echo"
+							<p class='card-title fw-bold pt-2'>Payment:</p>
+							<p class='card-title'>Option: $payment_option</p>
+							<p class='card-title'>Fee: ₱$total_amount.00 + Delivery Fee ₱50.00</p>
+							<p class='card-title'>Total Amount: <span class='fw-bold text-danger'>₱$grandtotal.00</span></p>
 						</div>
+						<button disabled  style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=received('$order_id') class='btn btn-sm text-white py-3'>CANCEL ORDER </button>				
+						</div>
+					</div> 
 						";
 				}
 			}
