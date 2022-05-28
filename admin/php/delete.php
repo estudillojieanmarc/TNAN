@@ -66,4 +66,19 @@ if(isset($_POST['deleteProduct'])){
 	}
 }
 
+
+// FUNCTION FOR REMOVE DELETE PRODUCT
+if(isset($_POST['deleteHistory'])){
+	$deleteHistory = $_POST['deleteHistory'];
+	$sql = " DELETE FROM `order_manager` WHERE `order_id` = '$deleteHistory'";
+	$result = mysqli_query($con, $sql);
+	if($result){
+		echo 1;
+		exit;
+	}else{
+		echo 0;
+		exit;
+	}
+}
+
 ?>

@@ -375,7 +375,6 @@ include('config.php');
 					<td>$grand_total</td>
 					<td>$new_date</td>
 					<td>$payment_option</td>
-					<td><button class='btn btn-sm btn-danger' type='button' onclick='deleteComplete($order_id)'>DELETE</button></td>
 				</tr>
 				";
 			}

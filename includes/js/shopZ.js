@@ -290,40 +290,50 @@
 
 // FUNCTION FOR UPDATE ITEM FROM THE CART 
     $("body").delegate(".update","click",function(e){
+
         e.preventDefault();
         var update = $(this).parent().parent().parent();
         var update_id = update.find(".update").attr("update_id");
         var qty = update.find(".quantity").val();
-        Swal.fire({
-            title: 'Save Changes?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Continue'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url	:	"/TNAN/includes/php/function.php",
-                    method	:	"POST",
-                    data	:	{updateCartItem:1,update_id:update_id,quantity:qty},
-                    success	:	function(response){
-                        if(response == 1){
-                            Swal.fire({
-                                title: 'Product Updated',
-                                icon: 'info',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Continue'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    getCartItem();
-                                }
-                            })
+        var stock = update.find(".stock").val();
+        if(qty > stock){
+            Swal.fire(
+                'Invalid Quantity',
+                'The quantity cannot exceed the amount in stock.',
+                'error'
+                )        
+        }else{
+            Swal.fire({
+                title: 'Save Changes?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Continue'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url	:	"/TNAN/includes/php/function.php",
+                        method	:	"POST",
+                        data	:	{updateCartItem:1,update_id:update_id,quantity:qty},
+                        success	:	function(response){
+                            if(response == 1){
+                                Swal.fire({
+                                    title: 'Product Updated',
+                                    icon: 'info',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'Continue'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        getCartItem();
+                                    }
+                                })
+                            }
                         }
-                    }
-                })
-            }
-        })
+                    })
+                }
+            })
+        }
     });
 
 // FUNCTION FOR TOTAL AMOUNT IN CART ITEM FUNCTION
@@ -436,7 +446,7 @@
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!'
+                            confirmButtonText: 'Continue!'
                           }).then((result) => {
                             if (result.isConfirmed) {
                                 customerDetails();
@@ -637,20 +647,20 @@
     }
 
 // FUNCTION FOR FETCH DATA FOR UPDATE MODAL
-function updateAccount(id){
-    $('#updateAccountModal').modal('show')
-    $.ajax({
-        url: '/TNAN/admin/fetchdata/updateCustomer.php/',
-        type: 'POST',
-        dataType: 'json',
-        data: {customerID: id},
-    })
-    .done(function(response) {
-        $('#updateID').val(response[0].customerID)
-        $('#accountUsername').val(response[0].customerUsername)
-        $('#accountPassword').val(response[0].customerPassword)
+    function updateAccount(id){
+        $('#updateAccountModal').modal('show')
+        $.ajax({
+            url: '/TNAN/admin/fetchdata/updateCustomer.php/',
+            type: 'POST',
+            dataType: 'json',
+            data: {customerID: id},
         })
-}
+        .done(function(response) {
+            $('#updateID').val(response[0].customerID)
+            $('#accountUsername').val(response[0].customerUsername)
+            $('#accountPassword').val(response[0].customerPassword)
+            })
+    }
    
 
 // FUNCTION FOR PASSWORD ENABLE
@@ -669,55 +679,89 @@ function updateAccount(id){
 
 
 // FUNCTION FOR UPDATE ACCOUNT
-$('#updateButton').click(function(e){
-    e.preventDefault();
-    Swal.fire({
-    title: 'Are you sure?',
-    text: "Do you want to update your account?",
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, update it!'
-    }).then((result) => {
-    if (result.isConfirmed) {
-        var currentForm = $('#updateAccountForm')[0];
-        var data = new FormData(currentForm);
-        $.ajax({
-            url: "/TNAN/includes/php/updateAccount.php",
-            method: "POST",
-            dataType: "text",
-            data:data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success:function(response){
-                if(response == 0){
-                    Swal.fire(
-                    'Update Failed',
-                    'Sorry, Please try again',
-                    'error'
-                    )
-                }else if(response == 1){
-                    Swal.fire({
-                        title: 'Update Success',
-                        text: "Your Account Has Been Updated",
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                      }).then((result) => {
-                        if (result.isConfirmed) {
-                            $('#updateAccountModal').modal('hide')
-                            customerDetails();
-                            updateAccount();
-                            identification();
-                        }
-                      })
-                }
-            },
-        error:function(error){console.log(error)}  }); 
-        }
-    })
-});
+    $('#updateButton').click(function(e){
+        e.preventDefault();
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to update your account?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, update it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            var currentForm = $('#updateAccountForm')[0];
+            var data = new FormData(currentForm);
+            $.ajax({
+                url: "/TNAN/includes/php/updateAccount.php",
+                method: "POST",
+                dataType: "text",
+                data:data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(response){
+                    if(response == 0){
+                        Swal.fire(
+                        'Update Failed',
+                        'Sorry, Please try again',
+                        'error'
+                        )
+                    }else if(response == 1){
+                        Swal.fire({
+                            title: 'Update Success',
+                            text: "Your Account Has Been Updated",
+                            icon: 'success',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#updateAccountModal').modal('hide')
+                                customerDetails();
+                                updateAccount();
+                                identification();
+                            }
+                        })
+                    }
+                },
+            error:function(error){console.log(error)}  }); 
+            }
+        })
+    });
+
+
+// FUNCTION FOR DELETE HISTORY
+    // function deleteHistory(id){
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "Do you want to delete this?",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, delete it'
+    //         }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             $.ajax({
+    //             url: '/TNAN/admin/php/delete.php',
+    //             type: 'POST',
+    //             dataType: 'json',
+    //             data: {deleteHistory: id},
+    //         });
+    //         Swal.fire({
+    //         title: 'Delete Succesfully',
+    //         text:  "Cancel report was delete successfully",
+    //         icon: 'success',
+    //         confirmButtonColor: '#3085d6',
+    //         confirmButtonText: 'Continue'
+    //         }).then((result) => {
+    //         if (result.isConfirmed) {
+    //         $('#purchaseHistoryModal').modal('hide');
+    //         }
+    //         })
+    //         }
+    //     })
+    // }

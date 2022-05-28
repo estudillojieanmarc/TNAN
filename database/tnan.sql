@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2022 at 03:16 PM
+-- Generation Time: May 28, 2022 at 04:08 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -63,7 +63,8 @@ INSERT INTO `cart` (`id`, `p_id`, `user_id`, `qty`) VALUES
 (533, 15, 54, 1),
 (534, 13, 54, 1),
 (609, 19, 60, 1),
-(610, 40, 60, 1);
+(610, 40, 60, 1),
+(622, 10, 62, 2);
 
 -- --------------------------------------------------------
 
@@ -120,7 +121,7 @@ INSERT INTO `customers` (`customerID`, `customerImage`, `customerName`, `custome
 (56, 'default.png', 'Aiza Seguera', '09398320583', 'Brgy. Sad ng Tondo Manila', 'Aiza@gmail.com', 'Aiza123', 'b38ac18016d255ee4e9a364fb6490ebf', 0),
 (57, 'fttcs.jpg', 'Andrea Torres', '09398320582', 'Brgy. GIrl ng Tondo Manila', 'andrea@gmail.com', 'Andrea123', '8d28898f353eda472701f2b68d2a8cdb', 0),
 (58, 'fttcs.jpg', 'Francine Diaz', '09398320588', 'Brgy. anddrea ng Tondo Manila', 'francine@gmail.com', 'diaz123', '868310c023ef93de5db48a7bf83178a9', 0),
-(59, 'default.png', 'Julia Barreto', '', '', '', 'Julia123', '8f3af6dd20c51a8aea355f8c97b53415', 0);
+(62, 'default.png', 'John Doe', '09398320588', 'Kulay yellow na bahay sa may tabacuhan', 'john@gmail.com', 'John123', 'a5391e96f8d48a62e8c85381df108e98', 0);
 
 -- --------------------------------------------------------
 
@@ -144,8 +145,8 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`foodID`, `foodImage`, `foodName`, `foodCategory`, `foodStock`, `foodDescription`, `foodPrice`, `foodStatus`) VALUES
-(9, 'aa.jpg', 'Outfit (27)', 3, '5', '1 BuFashion for Lorem ipsum dolor si', 500, 0),
-(10, 'i.jpg', 'Outfit (21)', 1, '3', '2 LitFashion for Lorem ipsum dolor si', 600, 0),
+(9, 'aa.jpg', 'Outfit (27)', 3, '1', '1 BuFashion for Lorem ipsum dolor si', 500, 0),
+(10, 'i.jpg', 'Outfit (21)', 1, '2', '2 LitFashion for Lorem ipsum dolor si', 600, 0),
 (11, 'c.jpg', 'Outfit (22)', 10, '0', 'PansFashion for Lorem ipsum dolor si', 850, 0),
 (12, 'd.jpg', 'Outfit (20)', 9, '3', 'GrahFashion for Lorem ipsum dolor si', 500, 0),
 (13, 'e.jpg', 'Outfit (19)', 8, '5', 'SiniFashion for Lorem ipsum dolor si', 700, 0),
@@ -191,47 +192,20 @@ CREATE TABLE `order_manager` (
 --
 
 INSERT INTO `order_manager` (`order_id`, `user_id`, `total_amount`, `payment_option`, `date_time_bought`, `order_status`) VALUES
-(118, 52, 850, 'Cash On Delivery', '2022-05-24 08:47:12', 'complete'),
-(119, 55, 700, 'Cash On Delivery', '2022-05-24 15:33:18', 'complete'),
-(120, 56, 850, 'Cash On Delivery', '2022-05-24 15:33:21', 'complete'),
-(121, 57, 1550, 'Cash On Delivery', '2022-05-24 15:33:27', 'complete'),
-(122, 55, 1550, 'Cash On Delivery', '2022-05-24 15:33:29', 'complete'),
-(123, 52, 1550, 'Cash On Delivery', '2022-05-24 14:48:48', 'complete'),
+(118, 52, 850, 'Cash On Delivery', '2022-05-25 08:47:12', 'complete'),
+(121, 57, 700, 'Cash On Delivery', '2022-05-23 12:29:58', 'complete'),
+(123, 52, 1500, 'Cash On Delivery', '2022-05-22 12:58:06', 'complete'),
 (124, 57, 1200, 'Cash On Delivery', '2022-05-24 15:33:35', 'complete'),
-(125, 56, 1550, 'Cash On Delivery', '2022-05-24 15:33:37', 'complete'),
-(126, 56, 850, 'Cash On Delivery', '2022-05-24 15:33:45', 'complete'),
-(127, 52, 1550, 'Cash On Delivery', '2022-05-24 14:49:02', 'complete'),
-(128, 56, 1550, 'Cash On Delivery', '2022-05-24 15:33:41', 'complete'),
-(129, 55, 1550, 'Cash On Delivery', '2022-05-24 15:33:47', 'complete'),
-(130, 55, 1550, 'Cash On Delivery', '2022-05-24 15:33:50', 'complete'),
-(131, 56, 1550, 'Cash On Delivery', '2022-05-24 15:33:52', 'complete'),
-(132, 52, 1550, 'Cash On Delivery', '2022-05-24 14:49:14', 'complete'),
-(133, 56, 1550, 'Cash On Delivery', '2022-05-24 15:33:54', 'complete'),
-(134, 57, 1550, 'Cash On Delivery', '2022-05-24 15:33:58', 'complete'),
-(135, 56, 1550, 'Cash On Delivery', '2022-05-24 15:34:00', 'complete'),
-(136, 55, 1550, 'Cash On Delivery', '2022-05-24 15:34:02', 'complete'),
-(137, 52, 1550, 'Cash On Delivery', '2022-05-24 14:49:23', 'complete'),
-(138, 57, 1550, 'Cash On Delivery', '2022-05-24 15:34:06', 'complete'),
-(139, 56, 1550, 'Cash On Delivery', '2022-05-24 15:34:08', 'complete'),
-(140, 55, 1550, 'Cash On Delivery', '2022-05-24 15:34:12', 'complete'),
-(141, 52, 1550, 'Cash On Delivery', '2022-05-24 15:13:47', 'complete'),
-(142, 57, 1550, 'Cash On Delivery', '2022-05-24 15:34:14', 'complete'),
-(150, 52, 1200, 'Cash On Delivery', '2022-05-24 15:19:54', 'complete'),
-(154, 52, 900, 'Cash On Delivery', '2022-05-24 16:07:38', 'complete'),
-(155, 55, 900, 'Cash On Delivery', '2022-05-24 16:11:33', 'complete'),
-(156, 56, 900, 'Cash On Delivery', '2022-05-24 16:11:35', 'complete'),
-(157, 57, 900, 'Cash On Delivery', '2022-05-24 16:11:37', 'complete'),
-(158, 55, 900, 'Cash On Delivery', '2022-05-24 16:11:39', 'complete'),
-(159, 57, 1100, 'Cash On Delivery', '2022-05-24 16:11:42', 'complete'),
-(160, 56, 800, 'Cash On Delivery', '2022-05-24 16:11:46', 'complete'),
-(161, 57, 800, 'Cash On Delivery', '2022-05-24 16:11:48', 'complete'),
-(162, 55, 800, 'Cash On Delivery', '2022-05-24 16:11:49', 'complete'),
-(163, 56, 1300, 'Cash On Delivery', '2022-05-24 16:11:51', 'complete'),
-(164, 57, 1300, 'Cash On Delivery', '2022-05-24 16:20:27', 'complete'),
-(165, 55, 1300, 'Cash On Delivery', '2022-05-25 11:19:58', 'complete'),
-(166, 57, 1500, 'Cash On Delivery', '2022-05-25 09:50:57', 'complete'),
-(168, 58, 1800, 'Cash On Delivery', '2022-05-25 10:26:16', 'complete'),
-(169, 60, 2300, 'Cash On Delivery', '2022-05-25 13:03:48', 'complete');
+(125, 56, 1550, 'Cash On Delivery', '2022-05-26 15:33:37', 'complete'),
+(126, 56, 1050, 'Cash On Delivery', '2022-05-20 12:32:13', 'complete'),
+(130, 55, 250, 'Cash On Delivery', '2022-05-21 15:33:50', 'complete'),
+(132, 52, 2000, 'Cash On Delivery', '2022-05-14 12:30:41', 'complete'),
+(133, 56, 850, 'Cash On Delivery', '2022-05-15 12:29:26', 'complete'),
+(135, 56, 1000, 'Cash On Delivery', '2022-05-16 12:29:46', 'complete'),
+(136, 55, 850, 'Cash On Delivery', '2022-05-17 12:29:28', 'complete'),
+(137, 52, 950, 'Cash On Delivery', '2022-05-18 12:29:42', 'complete'),
+(138, 57, 550, 'Cash On Delivery', '2022-05-19 12:29:36', 'complete'),
+(174, 62, 500, 'Cash On Delivery', '2022-05-28 14:02:47', 'complete');
 
 -- --------------------------------------------------------
 
@@ -382,7 +356,12 @@ INSERT INTO `user_orders` (`order_id`, `product`, `quantity`, `total`, `date_tim
 (168, '13', 1, 700, '2022-05-25 10:22:04'),
 (169, '10', 3, 1800, '2022-05-25 12:53:10'),
 (169, '9', 1, 500, '2022-05-25 12:53:10'),
-(170, '9', 1, 500, '2022-05-25 13:13:44');
+(170, '9', 1, 500, '2022-05-25 13:13:44'),
+(171, '9', 1, 500, '2022-05-28 13:23:44'),
+(171, '10', 1, 600, '2022-05-28 13:23:44'),
+(172, '9', 1, 500, '2022-05-28 13:24:39'),
+(173, '9', 1, 500, '2022-05-28 13:52:37'),
+(174, '9', 1, 500, '2022-05-28 14:02:13');
 
 --
 -- Indexes for dumped tables
@@ -438,7 +417,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=611;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=623;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -450,19 +429,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `foodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `foodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `order_manager`
 --
 ALTER TABLE `order_manager`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

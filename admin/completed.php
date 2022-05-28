@@ -99,7 +99,6 @@
                                         <th>TOTAL AMOUNT PAY</th>
                                         <th>PURCHASED ON</th>
                                         <th>PAYMENT OPTION</th>
-                                        <th>ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody id="fetchCompleted">

@@ -274,5 +274,5 @@
 <script src="/TNAN/includes/js/jquery-3.6.0.min.js"></script>
 <script src="/TNAN/includes/js/sweetalert.js"></script>
 <script src="/TNAN/admin/js/logout.js"></script>
-<script src="/TNAN/includes/js/shop.js"></script>
+<script src="/TNAN/includes/js/shopZ.js"></script>
 </html>

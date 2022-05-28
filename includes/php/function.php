@@ -343,12 +343,10 @@ if(isset($_POST['customerDetails'])){
 
 // FUNCTION FETCH PURCHASE HISTORY FROM THE DATABASE
 if(isset($_POST["purchaseHistory"])){
-	$Received = 'Received';
-	$Complete = 'Complete';
-	$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.order_status, c.customerID, c.customerName
-		FROM order_manager a , customers c WHERE a.order_status = 'Complete' AND a.order_status = 'Received'
-		AND a.user_id = '$_SESSION[uid]' AND  c.customerID = '$_SESSION[uid]' 
-		AND a.user_id =  c.customerID";
+	error_reporting(0);
+	$product_query = "SELECT a.order_id, a.user_id, a.total_amount, a.payment_option, a.order_status, c.customerID, 
+	c.customerName FROM order_manager a , customers c WHERE a.order_status = 'complete' AND a.user_id = '$_SESSION[uid]' AND c.customerID = '$_SESSION[uid]' AND a.user_id =  c.customerID
+	OR a.order_status = 'Received' AND a.user_id = '$_SESSION[uid]' AND c.customerID = '$_SESSION[uid]' AND a.user_id =  c.customerID ORDER BY a.order_id DESC";
 		$result = mysqli_query($con,$product_query);
 		if(mysqli_num_rows($result) > 0){
 		while($row = mysqli_fetch_array($result)){
@@ -358,15 +356,17 @@ if(isset($_POST["purchaseHistory"])){
 				$payment_option = $row['payment_option'];
 				$total_amount = $row['total_amount'];
 				$grandtotal = $total_amount + 50;
-				if($row['order_status'] == 'To Deliver'){
 				echo "
-				<div class='col-4 mb-4'>		
+				<div class='col-12 mt-2 mb-4'>		
 					<div class='card'>
 							<div class='card-body'>
 					";
 						$order_query = "SELECT a.order_id , a.product, a.quantity, a.total, b.foodID, b.foodName 
 						FROM user_orders a INNER JOIN food b ON a.product = b.foodID WHERE order_id = '$row[order_id]'";
 						$runs_query = mysqli_query($con,$order_query); 
+						echo "
+						<p class='card-title fw-bold pt-2'>Order:</p>
+						";
 						while($order_result = mysqli_fetch_array($runs_query))
 						{				
 						$quantity = $order_result['quantity'];
@@ -381,10 +381,9 @@ if(isset($_POST["purchaseHistory"])){
 							<p class='card-title'>Fee: ₱$total_amount.00 + Delivery Fee ₱50.00</p>
 							<p class='card-title'>Total Amount: <span class='fw-bold text-danger'>₱$grandtotal.00</span></p>
 						</div>
-						<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=received('$order_id') class='btn btn-sm text-white py-3'>RECEIVE ORDER </button>					</div>
 						</div> 
+					</div> 
 					";
-			}
 		}
 	}else{
 		echo "
@@ -443,6 +442,7 @@ if(isset($_POST["pendingID"])){
 						</div>
 						<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=received('$order_id') class='btn btn-sm text-white py-3'>RECEIVE ORDER </button>					</div>
 				</div> 
+				</div> 
 						";
 				}else if($row['order_status'] == 'Order'){
 				echo "
@@ -472,6 +472,7 @@ if(isset($_POST["pendingID"])){
 							<p class='card-title'>Total Amount: <span class='fw-bold text-danger'>₱$grandtotal.00</span></p>
 						</div>
 						<button style='background-color:#826F66; cursor:pointer;' font-size:15px;' onclick=cancel('$order_id') class='btn btn-sm text-white py-3'>CANCEL ORDER</button>
+				</div> 
 				</div> 
 						";
 				}else{
@@ -547,4 +548,5 @@ if(isset($_POST["cancel"])) {
 		exit();
 	}
 }
+
 ?>

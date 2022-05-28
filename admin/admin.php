@@ -152,19 +152,8 @@
                 <div class="row mx-1">
                     <div class="card shadow">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold pb-2"><i class="fas fa-project-diagram"></i> RECENT TRANSACTION DETAILS</h5>
-                            <table class="table table-bordered text-center align-middle">
-                                <thead>
-                                    <tr>
-                                        <th>TRANSACTION ID</th>
-                                        <th>USER</th>
-                                        <th>TOTAL AMOUNT PAY</th>
-                                        <th>DATE TIME BOUGHT</th>
-                                        <th>PAYMENT OPTION</th>
-                                    </tr>                                    
-                                </thead>
-                                <tbody id="transaction"></tbody >
-                            </table>
+                            <h5 class="card-title fw-bold pb-2"><i class="fas fa-project-diagram"></i> ZSALIAH'S SALES REPORT</h5>
+                            <canvas id="salesMonitoring"></canvas>
                         </div>
                     </div>                
                 </div>
@@ -174,6 +163,7 @@
 
     <!-- JAVASCRIPT -->
         <script src="/TNAN/admin/js/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="/TNAN/admin/js/sweetalert.js"></script>
         <script src="/TNAN/admin/js/datables.js"></script>
@@ -246,5 +236,48 @@
         </script>
     <!-- FUNCTION FOR FETCH CUSTOMER DATA FOR TABLE-->
   
+    <!-- FUNCTION FOR CHART -->
+        <?php
+        require 'config.php';
+        $sql = "SELECT date_time_bought as purchasedOn, SUM(total_amount) as total_sales FROM order_manager GROUP BY purchasedOn";
+        $result = mysqli_query($con,$sql) or die($con->error);
+        $food = mysqli_fetch_array($result);
+        while($food = mysqli_fetch_array($result))
+        {
+          $amount[]   = $food['total_sales'];
+          $newDate[] = date('F d, Y',strtotime($food['purchasedOn']));
+        }
+        ?>
+        <script>
+          const labels = <?php echo json_encode($newDate, true); ?>;
+          console.log(labels);
+          const data = {
+            labels: labels,
+            datasets: [{
+              label: 'ZSALIAHS SALES REPORT',
+              data: <?php echo json_encode($amount, true); ?>,
+              backgroundColor: [
+                'rgba(213 , 187 , 172, 0.5 )',
+              ],
+              borderColor: [
+                'rgba(0 , 0 , 0)',
+              ],
+              borderWidth: 1
+            }]
+          };
+          const config = {
+            type: 'line',
+            data: data,
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            },
+          };
+            var myChart = new Chart(document.getElementById('salesMonitoring'),config);
+        </script>
+    <!-- FUNCTION FOR CHART -->           
 </body>
 </html>
